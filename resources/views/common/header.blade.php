@@ -7,7 +7,7 @@
         <div class="menu first" >Home</div>
         <div class="menu">About Us</div>
         <div class="logo">
-         <img src="assets{{'signup/Logo.jpeg'}}" /></div>
+         <img src="assets{{'signup/Logo.svg'}}" /></div>
         <div class="menu">Login</div>
         <div class="menu last" >Signup</div>
     </div>
