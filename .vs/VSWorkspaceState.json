@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\public",
-    "\\public\\css",
     "\\public\\images",
     "\\resources",
     "\\resources\\css",
     "\\resources\\views",
     "\\resources\\views\\auth",
     "\\resources\\views\\authentication",
+    "\\resources\\views\\common",
     "\\resources\\views\\pages"
   ],
-  "SelectedNode": "\\resources\\views\\pages\\aboutus.blade.php",
+  "SelectedNode": "\\resources\\views\\common\\header.blade.php",
   "PreviewInSolutionExplorer": false
 }
