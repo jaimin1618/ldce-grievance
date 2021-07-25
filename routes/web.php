@@ -1,6 +1,8 @@
 <?php
 
 // use App\Http\Controllers\Home;
+
+use App\Http\Controllers\Complain;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +18,10 @@ use Illuminate\Support\Facades\Route;
 */
 // Auth::routes();
 // Route::get('/', [Home::class,'index']);
-
-
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('H');
+Route::post('complain/add/',[App\Http\Controllers\Complain::class,'insert'])->name('addComplain');
+Route::post('complain/update/',[Complain::class,'updateStatus'])->name('updateStatus');
+Route::post('complain/get-data/',[Complain::class,'get_data'])->name('getData');
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('H');
+
