@@ -9,10 +9,10 @@
    <div class="signup-div">
     <div class="l-div l-small">
         <img class="l-first" src="assets{{'signup/signup-left.svg'}}" />
-        <img class="l-sec" src="./images/register.svg" />
+        <img class="l-sec" src="assets{{'register.svg'}}" />
     </div>
     <div class="top-img">
-        <img src="./images/Path 2.svg" />
+        <img src="assets{{'Path 2.svg'}}" />
     </div>
     <div class="r-div">
         <img class="r-img" src=" assets{{'signup/path 2.svg'}}" />

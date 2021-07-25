@@ -22,6 +22,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('H'
 Route::post('complain/add/',[App\Http\Controllers\Complain::class,'insert'])->name('addComplain');
 Route::post('complain/update/',[Complain::class,'updateStatus'])->name('updateStatus');
 Route::post('complain/get-data/',[Complain::class,'get_data'])->name('getData');
+Route::view('aboutus', 'pages/aboutus');
 Auth::routes();
 
 
