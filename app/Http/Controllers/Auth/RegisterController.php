@@ -62,7 +62,7 @@ class RegisterController extends Controller
                 'name' => ['required', 'string', 'max:80'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'enrollment' => ['required','integer', 'min:100000000000','nullable', 'max:999999999999', 'unique:users'],     
-                'contact' => ['required','integer', 'min:1000000000', 'max:9999999999', 'unique:users'],            
+                'contact' => ['required','integer', 'min:1000000000', 'max:9999999999'],            
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
             ],[
                 'enrollment.min'=>"The Enrollment no. must be of 12 digit",

@@ -6,7 +6,7 @@
 <div class="body">
     <div class="about-title">
         <div class="title">About Us</div>
-        <img />
+        <img src="assets{{'aboutus/underline.svg'}}" />
     </div>
     <div class="common-title">
         <u>
@@ -29,22 +29,24 @@
         </li>
 
     </ul>
-    <pre>     The Student's Grievance Cell desires to promote and maintain a conducive and unprejudiced educational environment.
-    </pre>
-    <pre>     The Cell enables a student to express feelings by initiating and pursuing the grievance procedure in accordance with the rules and regulations of the College. 'Grievance Cell' enquires and analyses the nature and pattern of the grievances in a
-strictly confidential manner. Emphasis on procedural fairness has been given with a view to "the right to be heard and right to be treated without bias".
-
-   </pre>
-
+    <span class="normal">The Student's Grievance Cell desires to promote and maintain a conducive and unprejudiced educational environment. </span>
+    <br />
+    <br />
+    <span class="normal">
+        The Cell enables a student to express feelings by initiating and pursuing the grievance procedure in accordance with the rules and regulations of the College. 'Grievance Cell' enquires and analyses the nature and pattern of the grievances in a
+            strictly confidential manner. Emphasis on procedural fairness has been given with a view to "the right to be heard and right to be treated without bias".
+    </span>
+    <br />
+    <br />
     <span class="green">Objectives of Grievance Cell</span>
     <ul>
         <li>To support, those students who have been deprived of the services offered by the college, for which he / she is entitled.</li>
         <li>
             To make officials of the college responsive, accountable and courteous in dealing with the students.
-            </li>
+        </li>
         <li>
             To ensure effective solution to the students' grievances with an impartial and fair approach.
-            </li>
+        </li>
     </ul>
 
     <span class="green">Functions</span>
@@ -57,8 +59,33 @@ strictly confidential manner. Emphasis on procedural fairness has been given wit
             To guide ways and means to the students to redress their problems.
         </li>
     </ul>
-    <pre>     The grievance procedure is a machinery to sort out the issues between student and college. It is a means by which a student who believe that, he/she has been treated unfairly with respect to his / her academic / administrative affairs or is convinced to be discriminated is redressed. It is a device to settle a problem. It enables to express feelings by initiating and pursuing the grievance procedure in accordance with the rules and regulations of the college. It involves a process of investigation in which 'Grievance Cell' enquires and analyses the nature and pattern of the grievances in a strictly confidential manner. Matters are disclosed to only those, who have a legitimate role in resolving the matter.
-    </pre>
+    <span class="normal">The grievance procedure is a machinery to sort out the issues between student and college. It is a means by which a student who believe that, he/she has been treated unfairly with respect to his / her academic / administrative affairs or is convinced to be discriminated is redressed. It is a device to settle a problem. It enables to express feelings by initiating and pursuing the grievance procedure in accordance with the rules and regulations of the college. It involves a process of investigation in which 'Grievance Cell' enquires and analyses the nature and pattern of the grievances in a strictly confidential manner. Matters are disclosed to only those, who have a legitimate role in resolving the matter. </span>
 
+    <div class="dev-team">
+
+        <div class="about-title">
+            <div class="title">Developers Team</div>
+            <img src="assets{{'aboutus/underline.svg'}}" />
+        </div>
+        <br />
+        <div class="team-images">
+            <div class="dev-img-div">
+                <img src="assets{{'dev-team/dev-janvi.png'}}'" /> Soham Patel
+            </div>
+            <div class="dev-img-div">
+                <img src="assets{{'dev-team/dev-janvi.png'}}" />Siddhi Doshi
+            </div>
+            <div class="dev-img-div">
+                <img src="assets{{'dev-team/dev-janvi.png'}}" />Janvi Thakkar
+            </div>
+            <div class="dev-img-div">
+                <img src="assets{{'dev-team/dev-janvi.png'}}" />Rishi
+            </div>
+            <div class="dev-img-div">
+                <img src="assets{{'dev-team/dev-janvi.png'}}" />Shalin Shah
+            </div>
+
+        </div>
+    </div>
 </div>
 @endsection

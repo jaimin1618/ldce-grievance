@@ -4,10 +4,10 @@
     "\\public",
     "\\public\\css",
     "\\public\\images",
+    "\\public\\images\\aboutus",
+    "\\public\\images\\signup",
     "\\resources",
-    "\\resources\\css",
     "\\resources\\views",
-    "\\resources\\views\\auth",
     "\\resources\\views\\authentication",
     "\\resources\\views\\pages"
   ],
