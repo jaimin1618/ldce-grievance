@@ -2,6 +2,8 @@
 
 @section('body')
     @include('common.header')
-    @yield('content')
+    <main>
+        @yield('content')    
+    </main>    
     @include('common.footer')
 @endsection

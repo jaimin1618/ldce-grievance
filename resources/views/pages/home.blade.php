@@ -10,7 +10,7 @@
 {{Auth::user()->name}}
     <h1>home page</h1>
     <h1>{{Auth::user()->role}}</h1>
-    <img src="{{ asset(Auth::user()->profile_pic) }}" alt="">
+    {{-- <img src="{{ asset(Auth::user()->profile_pic) }}" alt=""> --}}
     {{-- <img src="{{ asset('public/images/grievanceimages/Web 1920 – 11626616031.png') }}" alt="ss"> --}}
     <form method="POST" action="{{ route('logout') }}">
         @csrf

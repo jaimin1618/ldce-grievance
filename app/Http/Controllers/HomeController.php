@@ -22,8 +22,7 @@ class HomeController extends My_controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        
+    {        
         return view('pages.home');
     }
 }

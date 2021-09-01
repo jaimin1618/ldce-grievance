@@ -1,12 +1,15 @@
+@extends('common.main')
+@section('title',"About Us")
 @section('styles')
+
 <link rel="stylesheet" href=".././css/aboutus.css" />
 @endsection
 
-@section('body')
+@section('content')
 <div class="body">
     <div class="about-title">
         <div class="title">About Us</div>
-        <img src="assets{{'aboutus/underline.svg'}}" />
+        <img src="{{asset('images/aboutus/underline.svg')}}" />
     </div>
     <div class="common-title">
         <u>
@@ -65,24 +68,24 @@
 
         <div class="about-title">
             <div class="title">Developers Team</div>
-            <img src="assets{{'aboutus/underline.svg'}}" />
+            <img src="{{asset('images/aboutus/underline.svg')}}" />
         </div>
         <br />
         <div class="team-images">
             <div class="dev-img-div">
-                <img src="assets{{'dev-team/dev-janvi.png'}}'" /> Soham Patel
+                <img src="{{asset('images/dev-team/dev-janvi.png')}}" /> Soham Patel
             </div>
             <div class="dev-img-div">
-                <img src="assets{{'dev-team/dev-janvi.png'}}" />Siddhi Doshi
+                <img src="{{asset('images/dev-team/dev-janvi.png')}}" />Siddhi Doshi
             </div>
             <div class="dev-img-div">
-                <img src="assets{{'dev-team/dev-janvi.png'}}" />Janvi Thakkar
+                <img src="{{asset('images/dev-team/dev-janvi.png')}}" />Janvi Thakkar
             </div>
             <div class="dev-img-div">
-                <img src="assets{{'dev-team/dev-janvi.png'}}" />Rishi
+                <img src="{{asset('images/dev-team/dev-janvi.png')}}" />Rishi
             </div>
             <div class="dev-img-div">
-                <img src="assets{{'dev-team/dev-janvi.png'}}" />Shalin Shah
+                <img src="{{asset('images/dev-team/dev-janvi.png')}}" />Shalin Shah
             </div>
 
         </div>

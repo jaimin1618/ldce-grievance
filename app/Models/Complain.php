@@ -48,7 +48,7 @@ class Complain extends Model
         if(empty($config) || isset($config['not_allowed'])){
             return false;
         }
-        $query = DB::table($this->table)->select($this->table.".*",$this->Usertable.".email",$this->Usertable.".name")->join($this->Usertable,$this->table.".id","=",$this->Usertable.".id");
+        $query = DB::table($this->table)->select($this->table.".*",$this->Usertable.".email",$this->Usertable.".name",$this->Usertable.".profile_pic")->join($this->Usertable,$this->table.".id","=",$this->Usertable.".id");
         if(isset($config['user_id'])){
             $query = $query->where($this->table.'.user_id',$config['user_id']); 
         }
@@ -58,11 +58,14 @@ class Complain extends Model
         if(isset($config['institute']) && trim($config['institute'])!=""){
             $query = $query->where($this->table.'.institute',$config['institute']); 
         }    
-        if(isset($config['status']) && $config['status']!=config("constants.all")){
+        if(isset($config['status']) && $config['status']!="" && $config['status']!=config("constants.all")){
             $query = $query->where($this->table.'.status',$config['status']); 
         }   
         if(isset($config['search']) && trim($config['search'])!=""){
             $query = $query->where($this->table.'.message','like',"%".$config['search']."%"); 
+        }
+        if(isset($config['end_date']) && isset($config['from_date'])){
+            $query = $query->whereBetween($this->table.'.created_at',[$config['from_date'],$config['end_date']]);
         }
            
         if(isset($config['sort_by']) && $config['sort_by']=="date_asc" ){
@@ -86,5 +89,18 @@ class Complain extends Model
         $returnData['data'] = $query->get()->toArray();
         
         return $returnData;
+    }
+    public function getComplainCount($data = []){
+        $query = DB::table($this->table)->select("status",DB::raw('count(status) as total'))->groupBy('status');
+        if(isset($data['department']) && $data['department']>0){
+            $query = $query->where('department',$data['department']);
+        }
+        if(isset($data['user_id'])){
+            $query = $query->where('user_id',$data['user_id']);
+        }
+        if(isset($data['from_date']) && isset($data['to_date'])){
+            $query = $query->whereBetween('created_at',[$data['from_date'],$data['to_date']]);
+        }
+        return $query->get()->toArray();
     }
 }

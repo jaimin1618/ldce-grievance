@@ -152,27 +152,37 @@ class Complain extends My_controller
             //sort_by : {date_asc|date_desc}
             //page_no
             //search
+            //status
+            //from_date
+            //end_date
         //officer & principal
             //sort_by : {date_asc|date_desc}
             //page_no
             //search
             //department
             //status
+            //from_date
+            //end_date
         //HOD_ROLE
             //sort_by : {date_asc|date_desc}
             //page_no
             //search            
             //status
+            //from_date
+            //end_date
         //super aAdmin
             //sort_by : {date_asc|date_desc}
             //page_no
             //search
-            //institute
+            //institute(not compulsary)
             //department
             //status
+            //from_date
+            //end_date
 
         $data = $req->input();
-        if($this->user()!=null && !empty($data) && $req->hasHeader("X-CSRF-TOKEN")){
+        
+        if($this->user()!=null && !empty($data)){
             $role = $this->user()->role;
 
             $config = ["not_allowed","true"];
@@ -180,19 +190,20 @@ class Complain extends My_controller
             if($role==config("constants.STUDENT_ROLE")){
                 $config = [
                     "user_id" => $this->user()->id,
-                    "sort_by" => $data['sort_by']
+                    "sort_by" => $data['sort_by'],
+                    "status" => $data['status']
                 ];                
             }
             if($role==config("constants.OFFICER_ROLE") || $role==config("constants.PRINCIPAL_ROLE")){                
-                if($data['status'] != config("constants.PENDING") && $data['status'] != config("constants.REJECTED") && $data['status'] != config("constants.APPROVED")){
-                    return $this->return_message(false,"You are not allow to access");
-                }
+                // if($data['status'] != config("constants.PENDING") && $data['status'] != config("constants.REJECTED") && $data['status'] != config("constants.APPROVED") && $data['status'] != ''){
+                //     return $this->return_message(false,"You are not allow to access");
+                // }
                 $config = [                    
                     "status"=>$data['status'],
                     "institute"=>$this->user()->institute,                    
                     "sort_by" => $data['sort_by']
                 ];
-                if(isset($data['department']) && trim($data['department'])!="" && $data['department']!=null){
+                if(isset($data['department']) && trim($data['department'])!="" && $data['department']!=null  && $data['department']>0){
                     $config['department'] = $data['department'];
                 }
             }
@@ -211,7 +222,7 @@ class Complain extends My_controller
                     "status"=>$data['status'],
                     "sort_by" => $data['sort_by']
                 ];    
-                if(isset($data['department']) && trim($data['department'])!="" && $data['department']!=null){
+                if(isset($data['department']) && trim($data['department'])!="" && $data['department']!=null && $data['department']>0){
                     $config['department'] = $data['department'];
                 }
                 if(isset($data['institute']) && trim($data['institute'])!="" && $data['institute']!=null){
@@ -230,6 +241,12 @@ class Complain extends My_controller
             if(isset($data['search']) && trim($data['search']) != ""){
                 $config['search'] = $data['search'];
             }            
+            if(isset($data['from_date']) && $data['from_date']!=""){
+                $config['from_date'] = $data['from_date'];
+            }
+            if(isset($data['end_date']) && $data['end_date']!=""){
+                $config['end_date'] = $data['end_date'];
+            }
             $returnData = $this->model->getComplainData($config);
             if(isset($returnData) && !empty($returnData)){
                 $returnData['status'] = true;
@@ -238,6 +255,45 @@ class Complain extends My_controller
                 return $this->return_message(false,"OOPS! something went wrong");
             }
             
+        }        
+    }
+    public function get_complain_counts(Request $req){
+        $data = $req->input();
+        $department = Auth::user()->department;
+        if(isset($data['department'])){
+            $department = $data['department'];
         }
+        // $passData['today_date'] = date('Y-m-d');
+        $from_date = $from_date = date("Y-m-d", strtotime( date( "Y-m-d", strtotime( date("Y-m-d") ) ) . "-1 month" ) );
+        if(isset($data['from_date'])){
+            $from_date = $data['from_date'];
+        }
+        $to_date = date("Y-m-d", strtotime('tomorrow'));
+        if(isset($data['to_date'])){
+            $to_date = $data['to_date'];
+            $to_date = trim($to_date);
+            $to_date = substr_replace($to_date,((int)(substr(trim($to_date),8))+1),8);
+        }
+        $passData = [
+            'department'=>$department,
+            'from_date' => $from_date,
+            'to_date' => $to_date
+        ];
+        if(Auth::user()->role==config('constants.STUDENT_ROLE')){
+            $passData['user_id'] = Auth::user()->id;
+        }
+
+        $complains = $this->model->getComplainCount($passData);
+        if(isset($complains) && !empty($complains)){
+            return json_encode([
+                "status"=>true,
+                "data"=>$complains
+            ]);
+        }else{
+            return json_encode([
+                "status"=>false,
+                "msg"=>"NO data found"
+            ]);
+        }        
     }
 }

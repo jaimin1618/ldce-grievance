@@ -1,0 +1,70 @@
+
+  /* ///pagination---------------------------------- */
+  .pagination-area{
+    display: flex;
+    width: 100%;
+}
+.pagination-container{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;      
+}
+.pagination-box{
+    display: flex;
+    flex-direction: row;   
+    align-items: center;   
+}
+.pagination-box:nth-child(2){
+    justify-content: flex-end;
+}
+.pagination-box span{
+    display: flex;
+    width: auto;
+    margin-right: 10px;
+    font-size: 18px;
+    color: #777777;
+    flex: none;
+}
+.pagination-button-area{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.pagination-button-area button{
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    font-size: 18px;
+    color: #777;
+    background: transparent;
+    border: 0.5px solid #BBB;
+}
+.pagination-button-area .active{
+    border: 2px solid black;
+}
+.pagination-button-area button:disabled{
+    cursor: not-allowed;
+    background-color: rgba(0,0,0,.1);
+
+}
+
+.back-btn,.next-btn{
+  width: 40px;
+}
+
+@media (max-width:550px){
+    .pagination-container{
+        flex-direction: column;
+    }
+    .pagination-box{
+        flex:1;
+        justify-content: center !important;
+        align-items: center !important;
+        margin: 5px 0px;
+    }
+}

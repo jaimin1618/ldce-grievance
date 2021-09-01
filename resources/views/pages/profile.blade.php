@@ -2,9 +2,9 @@
 
 @section('title',"Profile")
 
-@push('styles')
+@section('styles')
     <link rel="stylesheet" href=".././css/profile.css" />
-@endpush
+@endsection
 
 @section('content')
     <div class="signup-div">

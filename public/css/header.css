@@ -1,4 +1,4 @@
-.top-bar {
+/* .top-bar {
     height: 60px;
     background: linear-gradient(#3CCD7F,#6F90D4);
     display: flex;
@@ -25,5 +25,169 @@
 .logo img {
     width: 150px;
     height: 150px;
-    margin-top: 90px;
+    margin-top: 90px;    
+    border-radius: 100%;
+} */
+*{
+    padding: 0px;
+    margin: 0px;    
+    box-sizing: border-box;
+}
+body{
+    overflow-x: hidden;
+}
+header{
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    z-index: 111;
+    left: 0px;
+    display: flex;
+    height: 75px;        
+    flex-direction: column;
+    background-color: #283891;
+}
+.header{
+    position: relative;
+    width: 100%;
+    display: flex;    
+    justify-content: center;
+    height: 100%;        
+    flex-direction: column;
+}
+
+header nav{
+    position: relative;    
+    width: 100%;
+    flex: 1;    
+    display: flex;        
+    justify-content: space-between;
+    flex-direction: row;
+}
+header nav ul{
+    display: flex;
+    flex: 1;    
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+header nav ul:first-child{
+    margin-right: 150px;
+}
+header nav ul li{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+header nav ul li a{
+    display: flex;
+    flex: 1;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    
+}
+header nav ul li a span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+}
+header nav ul li .active{    
+    border-bottom: 3px solid white;
+}
+header nav ul li a span:first-child{
+    margin-right: 5px;
+}
+header .logo{
+    display: flex;    
+    top: 0px;
+    height: 120px;
+    width: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;             
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+header .logo img{
+    height: 90%;    
+    width: 90%;  
+    border-radius: 100%;
+
+}
+.btn-toggle{
+    display: none;
+    height: 32px;
+    width: 32px;    
+}
+@media (max-width:950px){
+    header  .logo{
+        height: 100px;
+        width: 100px;
+    }
+    header  ul:first-child{
+        margin-right: 100px;
+    }
+}
+@media (max-width:768px){
+    header{
+        height: 50px;
+    }
+    header  .logo{
+        height: 80px;
+        width: 80px;
+    }
+    header nav ul:first-child{
+        margin-right: 0px;
+        margin-top: 30px;
+    }
+    .header nav{
+        position: fixed;
+        width: 250px;
+        height: 100vh;
+        background-color: #283891;
+        top: 50px;
+        z-index: 0;
+        left: 0px;
+        justify-content: flex-start;
+        flex-direction: column;
+        transition: all 0.3s linear;
+        transform: translateX(-100%);
+    }
+    .header nav ul{
+        flex: none;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+        flex-direction: column;
+    }
+    .header nav ul li{
+        flex: none;
+        padding: 10px !important;
+        width: 100%;
+    }
+    .header nav ul li a{
+        padding: 10px 0px 10px 40px;
+        justify-content: flex-start;
+        align-items: center;
+        flex: none;
+        width: 100%;
+    }
+    .header nav ul li a span{
+        font-size: 20px;
+    }
+    .btn-toggle{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 16px;
+    }
 }
