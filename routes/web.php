@@ -2,6 +2,7 @@
 
 // use App\Http\Controllers\Home;
 
+use App\Http\Controllers\Profile;
 use App\Http\Controllers\Complain;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Department;
@@ -29,6 +30,7 @@ Route::post('complain/get-count/',[Complain::class,'get_complain_counts'])->name
 
 Route::get('add-grivance',[Complain::class,'addComplain'])->name('addGrivanceView');
 Route::post('add-grivance/add',[Complain::class,'insert'])->name('addGrivance');
+
 Route::get('dashboard',[Dashboard::class,'index'])->name('dashboard');
 
 Route::get('department',[Department::class,'index'])->name('department');
@@ -36,6 +38,8 @@ Route::get('department',[Department::class,'index'])->name('department');
 
 
 Route::get('manage-users',[ManageUser::class,'index'])->name('manageUsers');
+Route::get('profile',[Profile::class,'index'])->name('profile');
+Route::post('user/save',[Profile::class,'saveData'])->name('saveUser');
 Route::view('aboutus', 'pages/aboutus')->name('aboutus');
 Auth::routes();
 
