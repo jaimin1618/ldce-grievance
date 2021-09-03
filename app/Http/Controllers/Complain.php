@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\StatusMail;
 use App\Models\Complain as ComplainModel;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -14,6 +15,9 @@ class Complain extends My_controller
     protected $model;
     public function __construct() {
         $this->model = new ComplainModel();
+    }
+    public function addComplain(){
+        return view('pages.add_grievance');
     }
     public function insert(Request $req){
         if(isset($req)){
@@ -93,7 +97,7 @@ class Complain extends My_controller
                         $mailData = [
                             "status" => $changedStatus,
                             "name"=>$userData[0]->name,
-                            "message"=>$message
+                            "given_message"=>$message
                         ];
 
                         Mail::to($userData[0]->email)->send(new StatusMail($mailData));
@@ -119,11 +123,12 @@ class Complain extends My_controller
                     $stattusMessage = "Complain status changed to \'in Progress\' successfully";
                     if($status==config('constants.COMPLETED')){
                         $stattusMessage = "Complain status changed to \'Completed\' successfully";
+                        $changedStatus = "completed";
                     }
                     $mailData = [
                         "status" => $changedStatus,
                         "name"=>$userData[0]->name,
-                        "message"=>$message
+                        "given_message"=>$message
                     ];
 
                     Mail::to($userData[0]->email)->send(new StatusMail($mailData));
@@ -245,8 +250,15 @@ class Complain extends My_controller
                 $config['from_date'] = $data['from_date'];
             }
             if(isset($data['end_date']) && $data['end_date']!=""){
-                $config['end_date'] = $data['end_date'];
+                $to_date = $data['end_date'];
+                $to_date = trim($to_date);
+                $datetime = new DateTime($to_date);
+                $datetime->modify('+1 day');
+                $to_date = $datetime->format('Y-m-d');                
+                $config['end_date'] = $to_date;
             }
+            // print_r($config);
+            // die;
             $returnData = $this->model->getComplainData($config);
             if(isset($returnData) && !empty($returnData)){
                 $returnData['status'] = true;
@@ -272,7 +284,9 @@ class Complain extends My_controller
         if(isset($data['to_date'])){
             $to_date = $data['to_date'];
             $to_date = trim($to_date);
-            $to_date = substr_replace($to_date,((int)(substr(trim($to_date),8))+1),8);
+            $datetime = new DateTime($to_date);
+            $datetime->modify('+1 day');
+            $to_date = $datetime->format('Y-m-d');             
         }
         $passData = [
             'department'=>$department,
@@ -282,7 +296,6 @@ class Complain extends My_controller
         if(Auth::user()->role==config('constants.STUDENT_ROLE')){
             $passData['user_id'] = Auth::user()->id;
         }
-
         $complains = $this->model->getComplainCount($passData);
         if(isset($complains) && !empty($complains)){
             return json_encode([

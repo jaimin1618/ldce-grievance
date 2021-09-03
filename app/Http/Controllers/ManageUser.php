@@ -9,3 +9,4 @@ class ManageUser extends Controller
     function index(){
         return view('pages.manage_users');
     }
+}

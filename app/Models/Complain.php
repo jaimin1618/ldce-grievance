@@ -37,7 +37,7 @@ class Complain extends Model
         }
     }
     public function get_data($id=0){
-        $query = DB::table($this->table)->select($this->table.".*",$this->Usertable.".email",$this->Usertable.".name")->join($this->Usertable,$this->table.".id","=",$this->Usertable.".id");
+        $query = DB::table($this->table)->select($this->table.".*",$this->Usertable.".email",$this->Usertable.".name")->join($this->Usertable,$this->table.".user_id","=",$this->Usertable.".id");
         if($id>0){
             $query = $query->where($this->table.'.id', $id);
         }

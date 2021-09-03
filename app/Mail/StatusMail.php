@@ -29,6 +29,6 @@ class StatusMail extends Mailable
      */
     public function build()
     {
-        return $this->subject("Grivance status updated")->view('emails.status',$this->data);
+        return $this->subject("Your Grivance status updated")->view('emails.status',$this->data);
     }
 }

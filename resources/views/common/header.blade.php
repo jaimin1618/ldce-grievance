@@ -36,7 +36,7 @@
                 
                 @if(Auth::user()->role == config("constants.STUDENT_ROLE"))                
                     <li>
-                        <a href="">
+                        <a href="{{ route('addGrivanceView') }}" class="{{Route::currentRouteName()=='addGrivanceView'?'active':''}}">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24.758 24.761">
                                     <g id="pen" transform="translate(-1 511.853)">
@@ -116,7 +116,9 @@
                 @if(Auth::user())
                     <li>
                                                 
-                        <a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <a>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 32 26.14">
                                     <defs>
@@ -132,8 +134,9 @@
                                     </g>
                                 </svg>
                             </span>
-                            <span>Log Out</span>
-                        </a>
+                            <span><button type="submit" style="background: transparent;border:none;cursor:pointer"> <span>Log Out</span> </button ></span>
+                            </a>
+                        </form>
                     </li>
                 @else
                     <li>
