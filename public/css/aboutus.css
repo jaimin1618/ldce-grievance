@@ -1,10 +1,96 @@
-body {
+.inner-title{
+    font-size: 20px;
+    width: 100%;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 700;
+    display: flex;
+    margin: 20px 0px;
+}
+.container{
+    max-width: 1200px;
+    align-items: flex-start;
+
+}
+.container ul{
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+.container li{
+    color: #000;
+    margin-left: 10px;
+}
+.container li span{
+    margin-right: 10px;        
+}
+.container p{
+    font-size: 16px;
+    margin: 20px 0px;      
+}
+.container p:nth-child(2){
+    margin-top: 0px;
+}
+.team-area-row{
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.team-box{
+    min-width: 220px;
+    max-width: 220px;
+    flex: 1;
+    padding: 5px;
+    margin: 5px;
+    flex-direction: column;    
+    border: 1px solid lightgray;
+    border-radius: 5px;    
+}
+.team-box span{
+    margin-top: 10px;
+    font-size: 20px;
+    color: #000;
+}
+.team-box .img_box{
+    width: 100%;
+    max-width: 200px;
+    height: 200px;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid lightgray;
+}
+.team-box .img_box img{
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+@media (max-width:768px){
+    .container{
+        width: 95%;
+    }
+    .team-box{
+        min-width: 48%;
+        margin: 1%;
+        width: 48%;
+        flex: unset;
+        max-width: 48%;
+    }
+    .team-box .img_box{
+        height: 150px;
+    }
+}
+
+
+/* body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+} */
 
-.top-bar {
+/* .top-bar {
     height: 60px;
     background: linear-gradient(#3CCD7F, #6F90D4);
     display: flex;
@@ -30,14 +116,12 @@ body {
 
 .logo img {
     width: 150px;
-    height: 150px;
-    /* margin-top: 90px; */
+    height: 150px;    
 }
 
 .about-title {
     display: flex;
-    flex-direction: column;
-    /* margin-top: 100px; */
+    flex-direction: column;    
     align-items: center;
 }
 
@@ -108,4 +192,4 @@ body {
 
 .dev-team {
     margin-bottom: 50px;
-}
+} */

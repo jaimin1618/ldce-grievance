@@ -116,7 +116,7 @@
                 @if(Auth::user())
                     <li>
                                                 
-                        <form action="{{ route('logout') }}" method="POST">
+                        <form action="{{ route('logout') }}" style="width: 100%" method="POST">
                             @csrf
                             <a>
                             <span>

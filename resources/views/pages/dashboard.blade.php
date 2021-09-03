@@ -5,12 +5,16 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/pagination.css') }}" />
     <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
-
+    <style>
+        input,select{
+            background-color: white 
+        }
+    </style>
     
 @endsection
 
 @section('content')
-
+    
     <div class="full-container  d-f-c">
         <div class="container">
             <div class="title">
