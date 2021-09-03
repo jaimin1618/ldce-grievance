@@ -6,7 +6,7 @@
                     <li>
                         <a href="" class="{{Route::currentRouteName()=='home'?'active':''}}">
                             <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" id="icons8-home" width="25" height="25" viewBox="0 0 30.691 26.506">
+                                <svg xmlns="http://www.w3.org/2000/svg" id="icons8-home" width="20" height="20" viewBox="0 0 30.691 26.506">
                                     <defs>
                                       <style>
                                         .cls-1 {
@@ -25,7 +25,7 @@
                         <a href="{{ route('dashboard') }}" class="{{Route::currentRouteName()=='dashboard'?'active':''}}">
                             <span>
                                 
-                                <svg  width="25" height="25" viewBox="0 0 512 512"  >
+                                <svg  width="20" height="20" viewBox="0 0 512 512"  >
                                     <path d="M176,448H80V256h96V448z M304,160h-96v288h96V160z M432,64h-96v384h96V64z M512,0v512H0V0H512z M480,32H32v56h288v16H32v48  h160v16H32v48h160v16H32v48h32v16H32v48h32v16H32v48h32v16H32v56h448v-56h-32v-16h32v-48h-32v-16h32v-48h-32v-16h32v-48h-32v-16h32  v-48h-32v-16h32v-48h-32V88h32V32z" fill="white"/>
                                 </svg>
                             </span>
@@ -38,7 +38,7 @@
                     <li>
                         <a href="{{ route('addGrivanceView') }}" class="{{Route::currentRouteName()=='addGrivanceView'?'active':''}}">
                             <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24.758 24.761">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24.758 24.761">
                                     <g id="pen" transform="translate(-1 511.853)">
                                       <path id="Path_16" data-name="Path 16" d="M363.075-511.782a2.954,2.954,0,0,0-1.531,1.008l-.644.635,2.815,2.81,2.81,2.81.562-.557c.9-.882,1.134-1.342,1.134-2.175a2.44,2.44,0,0,0-.305-1.24,21.338,21.338,0,0,0-3.067-3.067A2.545,2.545,0,0,0,363.075-511.782Z" transform="translate(-342.463)" fill="#fff"/>
                                       <path id="Path_17" data-name="Path 17" d="M71.307-454.193,64.5-447.386l2.81,2.81,2.81,2.81,6.807-6.807,6.807-6.807-2.81-2.81L78.114-461Z" transform="translate(-60.423 -48.389)" fill="#fff"/>
@@ -53,7 +53,7 @@
                 <li>
                     <a href="{{ route('aboutus') }}" class="{{Route::currentRouteName()=='aboutus'?'active':''}}">
                         <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 38.299 28.924">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 38.299 28.924">
                                 <defs>
                                   <style>
                                     .cls-1 {
@@ -162,7 +162,7 @@
                     <li>
                         <a href="{{ route('register') }}">
                             <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 26.184 27.484">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 26.184 27.484">
                                     <g id="surface1" transform="translate(-2.445 -1.008)">
                                       <path id="Path_8" data-name="Path 8" d="M24.77,13.106H20.8V9.832c0-.027-.137-.055-.168-.055H17.707c-.035,0-.027.027-.027.055v3.273H13.57c-.035,0-.051.008-.051.035v2.34c0,.027.016.121.051.121H17.68v3.191c0,.027-.008.137.027.137h2.926a.389.389,0,0,0,.168-.137V15.6H24.77c.035,0,.191-.094.191-.121v-2.34C24.961,13.113,24.8,13.106,24.77,13.106Zm0,0" transform="translate(3.668 7.441)" fill="#fff"/>
                                       <path id="Path_9" data-name="Path 9" d="M15.584,23.868a.785.785,0,0,1-.674-.815V19.489a.672.672,0,0,1,.674-.69h4.24V15.711a9.82,9.82,0,0,0-4.655-3.166,6.17,6.17,0,0,0,3.1-5.385,6.082,6.082,0,0,0-6.011-6.152A6.081,6.081,0,0,0,6.256,7.16a6.17,6.17,0,0,0,3.1,5.385,9.933,9.933,0,0,0-6.915,9.508c0,5.492,4.4,6.438,9.817,6.438,3.04,0,5.758-.3,7.561-1.529V23.868Zm0,0" transform="translate(0)" fill="#fff"/>
@@ -179,7 +179,7 @@
             <img src="{{asset('images/header/logo.svg')}}" alt="">
         </div>
         <div class="btn-toggle" onclick="openNav()">
-            <svg xmlns="http://www.w3.org/2000/svg" id="hamburger-menu" width="25" height="25" viewBox="0 0 29.412 22.764">
+            <svg xmlns="http://www.w3.org/2000/svg" id="hamburger-menu" width="20" height="20" viewBox="0 0 29.412 22.764">
                 <path id="Path_10" data-name="Path 10" d="M2.482,0H26.931a2.393,2.393,0,0,1,2.481,2.278h0a2.393,2.393,0,0,1-2.481,2.278H2.482A2.393,2.393,0,0,1,0,2.278H0A2.393,2.393,0,0,1,2.482,0Zm0,18.208H26.931a2.393,2.393,0,0,1,2.481,2.278h0a2.393,2.393,0,0,1-2.481,2.278H2.482A2.393,2.393,0,0,1,0,20.486H0a2.393,2.393,0,0,1,2.482-2.278Zm0-9.1H26.931a2.393,2.393,0,0,1,2.481,2.278h0a2.393,2.393,0,0,1-2.481,2.278H2.482A2.394,2.394,0,0,1,0,11.382H0A2.393,2.393,0,0,1,2.482,9.1Z" fill="#fff" fill-rule="evenodd"/>
             </svg>
         </div>
@@ -195,7 +195,16 @@
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="20" id="Layer_1" version="1.1" viewBox="0 0 512 512" width="20" xml:space="preserve"><path d="M443.6,387.1L312.4,255.4l131.5-130c5.4-5.4,5.4-14.2,0-19.6l-37.4-37.6c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4  L256,197.8L124.9,68.3c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4L68,105.9c-5.4,5.4-5.4,14.2,0,19.6l131.5,130L68.4,387.1  c-2.6,2.6-4.1,6.1-4.1,9.8c0,3.7,1.4,7.2,4.1,9.8l37.4,37.6c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1L256,313.1l130.7,131.1  c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1l37.4-37.6c2.6-2.6,4.1-6.1,4.1-9.8C447.7,393.2,446.2,389.7,443.6,387.1z" fill="white"/></svg>
     </span>
 </div>
+
+<div class="loader-container" id="page_loader">
+    <div class="loader-box">
+        <img src="{{ asset('images/common/loader.gif') }}" alt="">
+    </div>
+</div>
 <script>
+    $(document).ready(()=>{
+        hideLoader();
+    })
      function openNav(){           
         if($("#left-nav").css('transform')=="matrix(1, 0, 0, 1, -250.4, 0)"){
             $("#left-nav").css("transform","translateX(0%)");
@@ -219,6 +228,14 @@
             closeAlert();
         },5000)        
         
+    }
+    function showLoader(){
+        $("#page_loader").show();
+        $("body").css('overflow','hidden');
+    }
+    function hideLoader(){
+        $("#page_loader").hide();
+        $("body").css('overflow','auto');
     }
     
 </script>

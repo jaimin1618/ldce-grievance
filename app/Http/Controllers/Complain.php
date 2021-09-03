@@ -17,7 +17,11 @@ class Complain extends My_controller
         $this->model = new ComplainModel();
     }
     public function addComplain(){
-        return view('pages.add_grievance');
+        if(Auth::user()->role==config('constants.STUDENT_ROLE')){
+            return view('pages.add_grievance');
+        }else{
+            return redirect(route('dashboard'));
+        }        
     }
     public function insert(Request $req){
         if(isset($req)){

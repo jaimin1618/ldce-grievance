@@ -85,6 +85,7 @@ header nav ul li{
 header nav ul li a{
     display: flex;
     flex: 1;
+    padding: 10px 0px;
     text-decoration: none;
     justify-content: center;
     align-items: center;
@@ -96,7 +97,7 @@ header nav ul li a span{
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 24px;
+    font-size: 20px;
 }
 header nav ul li .active{    
     border-bottom: 3px solid white;

@@ -134,6 +134,7 @@
                         $("#grivance_message_error").html("")                        
                     }                    
                     if(add_grivance.errorCount<=0){
+                        showLoader();
                         $.ajax({
                             url:  '{{ route("addGrivance") }}',
                             type: 'POST',
@@ -151,6 +152,7 @@
                                     showAlert(returnResponse.message,"fail");
                                 }
                                 $(window).scrollTop(0);
+                                hideLoader();
                             },
                             cache: false,
                             contentType: false,

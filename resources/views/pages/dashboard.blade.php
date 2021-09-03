@@ -48,8 +48,12 @@
                     <input type="date" name="end_date_chart" id="end_date_chart" max="@if(isset($today_date)){{$today_date}}@endif" value="@if(isset($today_date)){{$today_date}}@endif">
                 </div>
             </div>
-            <div class="analysis d-f-c">
-                
+            <div class="analysis d-f-c" style="position: relative" id="analysis_container">
+                <div class="inner_loader_container" id="chart_loader">
+                    <div class="inner_loader_box">
+                        <img src="{{ asset('images/common/loader.gif') }}" alt="">
+                    </div>
+                </div>
                 <div class="analysis-grid-container">
                     <div class="analysis-grid ">
                         <div class="card d-f-c">
@@ -169,7 +173,12 @@
                     
                 </div>                
             </div>
-            <div class="dashboard-table">
+            <div class="dashboard-table" style="position: relative;min-height:300px">
+                <div class="inner_loader_container" id="table_loader">
+                    <div class="inner_loader_box">
+                        <img src="{{ asset('images/common/loader.gif') }}" alt="">
+                    </div>
+                </div>
                 <div class="table ">
                     <div class="t-row t-heading">
                         <div class="td">id</div>                    
@@ -620,11 +629,13 @@
                     'end_date' : $("#end_date_chart").val(),
                     "_token": "{{ csrf_token() }}",
                 }
+                $("#chart_loader").css('display','flex');
                 $.ajax({
                     url: "{{ route('getCount') }}",
                     method:"POST",
                     data:data,
                     success:function(data){
+                        
                         var StatusDeatails = JSON.parse(data);
                         if(StatusDeatails.status==true){
                             var counts = dashboard.setCount(StatusDeatails.data);
@@ -641,11 +652,15 @@
                                 }
                             );
                         }
+                        $("#chart_loader").hide();
+                        
                     }
                     
                 })
             },
             getGrivanceList:function(page_no){
+                $("#table_loader").css('display','flex');
+                
                 var data = {
                     'department': $("#department_of_list").val(),
                     'from_date' : $("#start_date_table").val(),
@@ -686,7 +701,9 @@
                                 '<div class="t-row"><div class="not-found-message">No Grievance found</div></div>'
                             )
                         }
+                        $("#table_loader").hide();
                     }
+
                     
                 })
             },
