@@ -208,9 +208,17 @@
                 <div class="pop-up-body">
                     <div class="pop-up-row">
                         <span class="title">
+                            Title :
+                        </span>
+                        <span class="value" style="flex-direction: column" id="pop-up-grievance-title">
+                            no grievance
+                        </span>
+                    </div>
+                    <div class="pop-up-row">
+                        <span class="title">
                             Grievance :
                         </span>
-                        <span class="value" id="pop-up-grievance">
+                        <span class="value report-area" style="flex-direction: column" id="pop-up-grievance">
                             no grievance
                         </span>
                     </div>
@@ -234,7 +242,7 @@
                         <span class="title">
                             Officer's message :
                         </span>
-                        <span class="value" id="pop-up-officer-msg">
+                        <span class="value report-area" style="flex-direction: column" id="pop-up-officer-msg">
                             
                         </span>
                     </div>
@@ -242,7 +250,7 @@
                         <span class="title">
                             Return message :
                         </span>
-                        <span class="value" id="pop-up-return-msg">
+                        <span class="value report-area" style="flex-direction: column" id="pop-up-return-msg">
                             
                         </span>
                     </div>
@@ -328,6 +336,7 @@
         var dashboard = {
             default_img : "images/avtar1.jpg",
             base_path : "{{asset('')}}",
+            grivance_img_folder:"storage/images/grievanceimages/",
             editor:"",
             initialize:function(){
                 dashboard.getRequestCount();
@@ -341,9 +350,6 @@
                 $("#end_date_chart").on('change',function(){
                     dashboard.getRequestCount();
                 })
-
-
-
                 $("#search").on('input',function(){
                     dashboard.getGrivanceList(1);
                 })
@@ -431,22 +437,23 @@
                 // data = JSON.parse(data);
                 // console.log(data);
                 $("body").css("overflow","hidden");                
-                if(data.show_identity==true){
+                if(data.show_identity==true){                    
                     $("#sender_img").attr('src', dashboard.base_path + data.sender_img);
                     $("#sender_name").html(data.name);                
                 }else{
                     $("#sender_img").attr('src', dashboard.base_path + dashboard.default_img);
                     $("#sender_name").html("Unknown Person");  
-                } 
+                }                  
                 
                 if(data.grievance_img && data.grievance_img!=""){
                     $("#grivance-img").css('display','flex');
-                    $("#pop-up-grievance-img").attr('src',data.grievance_img);
+                    $("#pop-up-grievance-img").attr('src', dashboard.base_path + dashboard.grivance_img_folder +data.grievance_img);
                 }else{
                     $("#grivance-img").css('display','none');
                 }
 
                 (data.date && data.date!="")?$("#pop-up-date").html(data.date.slice(0, 10)) : $("#pop-up-date").html("");
+                $("#pop-up-grievance-title").html(data.title)
                 $("#pop-up-grievance").html(data.grievance);                
                 $("#pop-up-status").html(dashboard.setStatus(data.status));  
 
@@ -517,6 +524,7 @@
                 var row = "";
                 var data = {
                     id:rowData.id,
+                    title:rowData.title,
                     name:rowData.name,
                     sender_img:rowData.profile_pic,
                     date:rowData.created_at,
@@ -531,7 +539,7 @@
                 if(noMessage==false){                    
                     row += '<div class="t-row">';
                     row +=     '<div class="td">'+id+'</div>';
-                    row +=      '<div class="td">'+rowData.message+'</div>';                    
+                    row +=      '<div class="td">'+rowData.title+'</div>';                    
                     row +=      '<div class="td">'+dashboard.setStatus(rowData.status)+'</div>';
                     row +=      "<div class='td'><button class='view-more navy' onclick='dashboard.openViewMore("+JSON.stringify(data)+")'>view more</button></div>";
                     if(data.role!={{config('constants.STUDENT_ROLE')}}){
@@ -698,12 +706,14 @@
                         if(UpdateStatus.status==true){                           
                             dashboard.getGrivanceList(1);
                             dashboard.getRequestCount();
-                            alert(UpdateStatus.message);
+                            // alert(UpdateStatus.message);
+                            showAlert(UpdateStatus.message,"success");
                             dashboard.closeViewMore();
                             dashboard.closeActionPopUp();
                             
                         }else{
-                           alert(UpdateStatus.message)
+                            showAlert(UpdateStatus.message,"fail");
+                        //    alert(UpdateStatus.message)
                         }
                     }
                     

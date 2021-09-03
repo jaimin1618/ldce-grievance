@@ -24,12 +24,23 @@
         </p>
 
         <form  class="grivance-container" id="add_grivance_form" enctype="multipart/form-data" >   
-            @csrf      
+            @csrf  
             <div class="form_group">
                 <div class="label">
-                    <label for="">Grivance</label>
+                    <label for="">Title :</label>
+                    <span>write a small Title of your complain(maximum 100 character long)</span>
+                    <span class="error" id="title_error"></span>
+                </div>
+                <input maxlength="200" type="text" name="title" id="title" placeholder="Enter Title.. ">
+                <div class="label" style="flex-direction: row">
+                    <span id="title_length" style="flex: 0">0</span><span>/100</span>
+                </div>
+            </div>    
+            <div class="form_group">
+                <div class="label">
+                    <label for="">Grivance : </label>
                     <span>write your complain here</span>
-                    <span class="error"></span>
+                    <span class="error" id="grivance_message_error"></span>
                 </div>
                 <textarea placeholder="write Your grivance here..." name="message" id="editor" cols="30" rows="10"></textarea>        
             </div>
@@ -42,7 +53,7 @@
                 </div>
                 <div class="input-type-file primary-color">
                     Upload Image
-                    <input type="file" name="grievanceimg" accept="image/png, image/gif, image/jpeg,image/jpg" id="grivanceimg">
+                    <input type="file" name="grievanceimg" accept="image/png, image/gif, image/jpeg,image/jpg" id="grievanceimg">
                 </div>       
                 <div class="img_area" id="img_area">
                     
@@ -71,34 +82,82 @@
     <script >
         $(document).ready(()=>{
             add_grivance.initialize();
-            $("#grivanceimg").on('change',()=>{
-                const [file] =  document.getElementById('grivanceimg').files;                
+            $("#grievanceimg").on('change',()=>{
+                const [file] =  document.getElementById('grievanceimg').files;                
                 if (file) {
                     if(add_grivance.validateFile(file)){
                         $("#img_area").html("<img src='"+URL.createObjectURL(file)+"' />");
+                    }else{
+                        $("#img_area").html("");
                     }                    
                 }
-            }) 
+            }) ;
+            $("#title").on('input',()=>{
+                var len = $("#title").val().length;
+                if(len>100){
+                    $("#title_length").addClass('error');
+                    $("#title_length").siblings().addClass('error');
+                }else{
+                    $("#title_length").removeClass();
+                    $("#title_length").siblings().removeClass();
+                }
+                $("#title_length").html(len);
+            })
         })
         var add_grivance = {
             initialize:function(){
                 this.initializeEditor();
                 $("#add_grivance_form").submit(function(e) {
-                    e.preventDefault();  
-                    alert('s');  
+                    e.preventDefault();                      
                     var formData = new FormData(this);
+                    if(formData.get('title').trim()==""){
+                        add_grivance.errorCount += 1;
+                        $(window).scrollTop(0);
 
-                    $.ajax({
-                        url:  '{{ route("addGrivance") }}',
-                        type: 'POST',
-                        data: formData,
-                        success: function (data) {
-                            alert(data)
-                        },
-                        cache: false,
-                        contentType: false,
-                        processData: false
-                    });
+                        $("#title_error").html("Title is required field")
+                    }else{
+                        if(formData.get('title').length>100){
+                            add_grivance.errorCount += 1;
+                            $(window).scrollTop(0);
+                            $("#title_error").html("Title field can be maximum 100 character long")
+                        }else{
+                            add_grivance.errorCount>0 ? add_grivance.errorCount-= 1 : "";
+                            $("#title_error").html("")
+                        }
+                    }
+                    if(formData.get('message').trim()==""){
+                        add_grivance.errorCount += 1;
+                        $(window).scrollTop(0);
+                        $("#grivance_message_error").html("Grivance required field")
+                    }else{  
+                        add_grivance.errorCount>0 ? add_grivance.errorCount-= 1 : "";                      
+                        $("#grivance_message_error").html("")                        
+                    }                    
+                    if(add_grivance.errorCount<=0){
+                        $.ajax({
+                            url:  '{{ route("addGrivance") }}',
+                            type: 'POST',
+                            data: formData,
+                            success: function (data) {                            
+                                var returnResponse = JSON.parse(data);
+                                if(returnResponse.status==true){                                
+                                    showAlert(returnResponse.message,"success");
+                                    $("#img_area").html("");
+                                    add_grivance.editor.setData("");
+                                    $("#title").val("");
+                                    $("#title_length").html('0');
+                                    $("#show_identity").prop('checked', false);
+                                }else{                              
+                                    showAlert(returnResponse.message,"fail");
+                                }
+                                $(window).scrollTop(0);
+                            },
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    }
+                    
                 });
             },
             errorCount:0,
@@ -109,6 +168,7 @@
                         if(file.size>10000000){
                             this.errorCount += 1;
                             $("#img_error").html("File size must be less than 10MB.");
+                            $("#grievanceimg").val("");
                             return false;
                         }else{
                             if(this.errorCount>0){
@@ -120,11 +180,13 @@
                     }else{
                         this.errorCount += 1;
                         $("#img_error").html("Only png | jpeg | jpg are allowed types ");
+                        $("#grievanceimg").val("");
                         return false;
                     }
                 }else{
                     $("#img_error").html("file cant be loaded");
                     this.errorCount += 1;
+                    $("#grievanceimg").val("");
                     return false;
                 }
             },

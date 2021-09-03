@@ -24,6 +24,15 @@ class Complain extends My_controller
             $data = $req->input();
             if(isset($this->user()->id) && isset($data['_token'])){
                 $user_id =  $this->user()->id;
+                $title = "";
+                if(isset($data['title']) && trim($data['title'])!=""){
+                    if(strlen($data['title'])>100){
+                        return $this->return_message(false,"Title can be maximum 100 character long");
+                    }
+                    $title = $data['title'];
+                }else{
+                    return $this->return_message(false,"Title is required field");
+                }
                 $message = "";
                 if(isset($data['message']) && trim($data['message'])!=""){
                     $message = $data['message'];
@@ -31,6 +40,7 @@ class Complain extends My_controller
                     return $this->return_message(false,"Message is required field");
                 }
                 $Insertdata = [
+                    "title"=>$title,
                     'message'=>$message,
                     'user_id'=>$this->user()->id,
                     'department'=>$this->user()->department,
@@ -42,6 +52,15 @@ class Complain extends My_controller
                 }
                 if($req->hasFile('grievanceimg')){
                     $imageName = $req->file('grievanceimg')->getClientOriginalName();
+                    $fileSize = $req->file('grievanceimg')->getSize();
+                    $fileType = $req->file('grievanceimg')->getClientMimeType();
+
+                    if($fileSize>10000000){
+                        return  $this->return_message(false,"file size must be less than 10MB");
+                    }
+                    if(!($fileType=="image/png" || $fileType=="image/jpeg" || $fileType=="image/jpg")){
+                        return  $this->return_message(false,"Only png | jpeg | jpg are allowed types ");
+                    }                    
                     $timestamp = strtotime("now");
                     $imageName = "grieavance_img".$user_id.$timestamp.".".explode(".",$imageName)[1];                     
                     $path = 'public/images/grievanceimages';
@@ -52,7 +71,9 @@ class Complain extends My_controller
                     }                                          
                    
                 }
-                
+                // echo "<pre>";
+                // print_r($Insertdata);
+                // die;
                 if(!$this->model->insert_complain($Insertdata)){
                     return $this->return_message(false,"OOps!! something went wrong.");
                 }
