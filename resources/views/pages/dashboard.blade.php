@@ -7,14 +7,14 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
     <style>
         input,select{
-            background-color: white 
+            background-color: white
         }
     </style>
-    
+
 @endsection
 
 @section('content')
-    
+
     <div class="full-container  d-f-c">
         <div class="container">
             <div class="title">
@@ -25,27 +25,27 @@
                         <path id="Path_2" data-name="Path 2" d="M649.674-135.132l-1.287,2.847H590.528c-57.39,0-57.9,0-58.561-1.627-1.522-3.741-4.448,0-3.472,4.473.585,2.6,2.224,3.5,3.16,1.708.624-1.22,5.813-1.3,58.912-1.3h58.249L649.6-127c1.092,2.928,3.472,2.847,4.565-.081,1.365-3.66.936-7.808-1.014-9.922C651.781-138.547,651.04-138.141,649.674-135.132Z" transform="translate(-319.886 143.089)" fill="#283891"/>
                         <path id="Path_3" data-name="Path 3" d="M70.613-135.321c-1.687,3.61-.863,10.075,1.412,11.25,1.1.588,3.1-1.259,3.412-3.274.235-1.091,6.471-1.259,58.518-1.259,51.3,0,58.361.168,58.871,1.259,1.569,3.358,4.275-.756,3.373-5.037-.628-2.938-2.236-3.61-3.373-1.343l-.863,1.763H133.837c-38.476,0-58.125-.252-58.125-.84,0-1.931-1.608-4.2-2.942-4.2A2.584,2.584,0,0,0,70.613-135.321Z" transform="translate(-69.718 142.206)" fill="#283891"/>
                     </svg>
-                </div>            
+                </div>
             </div>
             <div class="dasboard-filter">
-               
+
                     <div class="dashboard-filter-box">
                         @if (isset($departments) && !empty($departments))
                         <span>Department : </span>
-                        
+
                         <select name="department_chart" id="department_chart">
                             <option value="-1">All</option>
                             @foreach ($departments as $department)
                                 <option value="{{ $department['department_id'] }}">{{ $department['department_name'] }}</option>
                             @endforeach
 
-                        </select>  
-                        @else 
-                            <input type="hidden" name="department_chart" id="department_chart" value="{{Auth::user()->department}}">  
+                        </select>
+                        @else
+                            <input type="hidden" name="department_chart" id="department_chart" value="{{Auth::user()->department}}">
                         @endif
-                        
+
                     </div>
-                
+
                 <div class="dashboard-filter-box">
                     <input type="date" name="start_date_chart" id="start_date_chart" value="@if(isset($last_month_date)){{$last_month_date}}@endif" />
                         -
@@ -98,10 +98,10 @@
                 </div>
                 <div class="analysis-grid-chart">
                     <div class="card">
-                        
-                        <div class="wrapper">                        
+
+                        <div class="wrapper">
                             <div class="pie-charts">
-                            <div class="pieID--status pie-chart--wrapper">                            
+                            <div class="pieID--status pie-chart--wrapper">
                                 <div class="pie-chart">
                                 <div class="pie-chart__pie"></div>
                                 <ul class="pie-chart__legend" id="dashboard_pie_chart" style="display: none">
@@ -113,17 +113,17 @@
                                 </ul>
                                 </div>
                             </div>
-                            
+
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                
+
+
             </div>
-        </div>        
+        </div>
     </div>
-    <div class="full-container  d-f-c" style="margin-top: 50px">        
+    <div class="full-container  d-f-c" style="margin-top: 50px">
         <div class="title">
             <h1 class="">Grievance List</h1>
             <div class="underline">
@@ -132,17 +132,17 @@
                     <path id="Path_2" data-name="Path 2" d="M649.674-135.132l-1.287,2.847H590.528c-57.39,0-57.9,0-58.561-1.627-1.522-3.741-4.448,0-3.472,4.473.585,2.6,2.224,3.5,3.16,1.708.624-1.22,5.813-1.3,58.912-1.3h58.249L649.6-127c1.092,2.928,3.472,2.847,4.565-.081,1.365-3.66.936-7.808-1.014-9.922C651.781-138.547,651.04-138.141,649.674-135.132Z" transform="translate(-319.886 143.089)" fill="#283891"/>
                     <path id="Path_3" data-name="Path 3" d="M70.613-135.321c-1.687,3.61-.863,10.075,1.412,11.25,1.1.588,3.1-1.259,3.412-3.274.235-1.091,6.471-1.259,58.518-1.259,51.3,0,58.361.168,58.871,1.259,1.569,3.358,4.275-.756,3.373-5.037-.628-2.938-2.236-3.61-3.373-1.343l-.863,1.763H133.837c-38.476,0-58.125-.252-58.125-.84,0-1.931-1.608-4.2-2.942-4.2A2.584,2.584,0,0,0,70.613-135.321Z" transform="translate(-69.718 142.206)" fill="#283891"/>
                 </svg>
-            </div>            
+            </div>
         </div>
         <div class="card container" style="margin-top: 30px">
             <div class="dasboard-filter" style="margin: 0px">
                 <div></div>
-                <div class="dashboard-filter-box">   
+                <div class="dashboard-filter-box">
                 <input type="search" id="search" style="cursor:text" placeholder="search...">
                 </div>
             </div>
             <div class="dasboard-filter" style="padding-left: 0px">
-                <div class="dashboard-filter-box">                
+                <div class="dashboard-filter-box">
                     @if (isset($departments) && !empty($departments))
                         <select name="department_of_list" id="department_of_list">
                             <option value="-1">All-department</option>
@@ -150,8 +150,8 @@
                             <option value="{{ $department['department_id'] }}">{{ $department['department_name'] }}</option>
                             @endforeach
                         </select>
-                    @else 
-                        <input type="hidden" name="department_of_list" id="department_of_list" value="{{Auth::user()->department}}">  
+                    @else
+                        <input type="hidden" name="department_of_list" id="department_of_list" value="{{Auth::user()->department}}">
                     @endif
                     @if (isset($sort_by) && !empty($sort_by))
                         <select name="sort_by" id="sort_by">
@@ -160,7 +160,7 @@
                             @endforeach
                         </select>
                     @endif
-                    
+
                     <select name="by_status" id="by_status">
                         <option value="">All Status</option>
                         <option value="{{ config('constants.PENDING') }}" @if(isset($default_status) && $default_status==config('constants.PENDING')) {{"selected"}} @endif >Pending</option>
@@ -174,8 +174,8 @@
                     <input type="date"  name="start_date_table" id="start_date_table" value="@if(isset($last_month_date)){{$last_month_date}}@endif"/>
                         -
                     <input type="date" name="end_date_table" id="end_date_table" max="@if(isset($today_date)){{$today_date}}@endif" value="@if(isset($today_date)){{$today_date}}@endif"/>
-                    
-                </div>                
+
+                </div>
             </div>
             <div class="dashboard-table" style="position: relative;min-height:300px">
                 <div class="inner_loader_container" id="table_loader">
@@ -185,25 +185,25 @@
                 </div>
                 <div class="table ">
                     <div class="t-row t-heading">
-                        <div class="td">id</div>                    
-                        <div class="td">Grievance</div>                    
+                        <div class="td">id</div>
+                        <div class="td">Grievance</div>
                         <div class="td">Status</div>
                         <div class="td">View more</div>
                         @if(Auth::user()->role!=config('constants.STUDENT_ROLE'))
-                            <div class="td">Action</div>            
-                        @endif                          
+                            <div class="td">Action</div>
+                        @endif
                     </div>
                     <div class="t-body" id="grievance_table_body">
-                        
-                    </div>                    
+
+                    </div>
                 </div>
             </div>
             <input type="hidden" id="page_no" value="1">
             <div id="myPagination" class="pagination-area">
             </div>
-        </div>        
+        </div>
     </div>
-    <div class="pop-up-container" id="viewMorePopUp" style="display: none">        
+    <div class="pop-up-container" id="viewMorePopUp" style="display: none">
         <div class="pop-up-inner-container" >
             <div class="pop-up-gray-area" onclick="dashboard.closeViewMore()"></div>
             <div class="pop-up-box">
@@ -216,8 +216,8 @@
                     </div>
                     <div  class="header-box" id="date_box" style="justify-content: flex-end">
                         <span class="date" id="pop-up-date">yyyy-mm-dd</span>
-                    </div>                                
-                </div>                
+                    </div>
+                </div>
                 <div class="pop-up-body">
                     <div class="pop-up-row">
                         <span class="title">
@@ -256,7 +256,7 @@
                             Officer's message :
                         </span>
                         <span class="value report-area" style="flex-direction: column" id="pop-up-officer-msg">
-                            
+
                         </span>
                     </div>
                     <div class="pop-up-row">
@@ -264,33 +264,33 @@
                             Return message :
                         </span>
                         <span class="value report-area" style="flex-direction: column" id="pop-up-return-msg">
-                            
+
                         </span>
                     </div>
-                    
+
                     <div class="pop-up-row">
                         <div class="btn-area" id="pop-up-btn">
                             <button class="primary-color">
-                                change 
+                                change
                             </button>
                         </div>
                     </div>
-                </div>  
-                    
+                </div>
+
             </div>
-        </div>   
+        </div>
     </div>
 
 
 
 
 
-    <div class="pop-up-container" id="actionPopUp" style="display: none">        
+    <div class="pop-up-container" id="actionPopUp" style="display: none">
         <div class="pop-up-inner-container" >
             <div class="pop-up-gray-area" onclick="dashboard.closeActionPopUp()"></div>
             <div class="pop-up-box">
                 <div class="header">
-                    <div class="header-box">                        
+                    <div class="header-box">
                         <h3 id="action_message_heading">Are you sure to approve!!</h3>
                     </div>
                 </div>
@@ -308,7 +308,7 @@
                     <div class="pop-up-row">
                         <div class="btn-area" id="action-pop-up-btn">
                             {{-- <button class="primary-color">
-                                change 
+                                change
                             </button> --}}
                         </div>
                     </div>
@@ -317,9 +317,9 @@
         </div>
     </div>
 
-    
-    
-    
+
+
+
 @endsection
 @section('scripts')
 <script src="{{ asset('js/dashboard.js') }}"></script>
@@ -327,13 +327,13 @@
     <script>
         $(document).ready(()=>{
             var height = $(".analysis-grid-container").css('height');
-            $(".analysis-grid-chart").css('height',height); 
+            $(".analysis-grid-chart").css('height',height);
               dashboard.initialize();
-          
-        })
-        
 
-        
+        })
+
+
+
         // data = {
             // name:,
             // sender_img:,
@@ -384,20 +384,20 @@
 
                 dashboard.initializeEditor();
 
-               
+
             },
             initializeEditor:function(){
                 ClassicEditor
-                .create( document.querySelector( '#editor' ),{  toolbar: 
+                .create( document.querySelector( '#editor' ),{  toolbar:
                     {
                         items: [
                             'heading',
                             '|',
                             'alignment',                                                 // <--- ADDED
                             'bold',
-                            'italic',            
+                            'italic',
                             'bulletedList',
-                            'numberedList',            
+                            'numberedList',
                             'blockQuote',
                             'undo',
                             'redo'
@@ -415,49 +415,49 @@
                 dashboard.editor.destroy();
             },
             openActionPopUp(action,id){
-                $("body").css("overflow","hidden");  
+                $("body").css("overflow","hidden");
                 $("#actionPopUp").show();
                 dashboard.destroyEditor();
                 dashboard.initializeEditor();
                 dashboard.editor.setData("");
-                
+
                 $("#action_complain_id").val(id);
-                if(action=="approve"){         
-                    $("#action_status").val({{config("constants.APPROVED")}});           
+                if(action=="approve"){
+                    $("#action_status").val({{config("constants.APPROVED")}});
                     $("#action_message_heading").html("Are You sure to Approve!!");
                     $("#action-pop-up-btn").html("<button onClick='dashboard.updateStatus()' class='success' >Approve</button>");
-                }else if(action=="rejected"){ 
-                    $("#action_status").val({{config("constants.REJECTED")}});                    
+                }else if(action=="rejected"){
+                    $("#action_status").val({{config("constants.REJECTED")}});
                     $("#action_message_heading").html("Are You sure to Reject!!");
                     $("#action-pop-up-btn").html("<button onClick='dashboard.updateStatus()' class='danger'>Declane</button>");
                 }else if(action=="in_progress"){
-                    $("#action_status").val({{config("constants.IN_PROGRESS")}}); 
+                    $("#action_status").val({{config("constants.IN_PROGRESS")}});
                     $("#action_message_heading").html("Are You sure to set in progress!!");
                     $("#action-pop-up-btn").html("<button onClick='dashboard.updateStatus()' class='success'>Add to progress</button>");
                 }else if(action=="complete"){
-                    $("#action_status").val({{config("constants.COMPLETED")}}); 
+                    $("#action_status").val({{config("constants.COMPLETED")}});
                     $("#action_message_heading").html("Are You sure to Complete!!");
                     $("#action-pop-up-btn").html("<button onClick='dashboard.updateStatus()' class='success'>Complete</button>");
                 }
-                
+
             },
             closeActionPopUp(){
                 $("#actionPopUp").fadeOut();
                 dashboard.editor.setData("");
                 $("body").css('overflow','auto')
             },
-            openViewMore: function(data){                
+            openViewMore: function(data){
                 // data = JSON.parse(data);
                 // console.log(data);
-                $("body").css("overflow","hidden");                
-                if(data.show_identity==true){                    
+                $("body").css("overflow","hidden");
+                if(data.show_identity==true){
                     $("#sender_img").attr('src', dashboard.base_path + data.sender_img);
-                    $("#sender_name").html(data.name);                
+                    $("#sender_name").html(data.name);
                 }else{
                     $("#sender_img").attr('src', dashboard.base_path + dashboard.default_img);
-                    $("#sender_name").html("Unknown Person");  
-                }                  
-                
+                    $("#sender_name").html("Unknown Person");
+                }
+
                 if(data.grievance_img && data.grievance_img!=""){
                     $("#grivance-img").css('display','flex');
                     $("#pop-up-grievance-img").attr('src', dashboard.base_path + dashboard.grivance_img_folder +data.grievance_img);
@@ -467,17 +467,17 @@
 
                 (data.date && data.date!="")?$("#pop-up-date").html(data.date.slice(0, 10)) : $("#pop-up-date").html("");
                 $("#pop-up-grievance-title").html(data.title)
-                $("#pop-up-grievance").html(data.grievance);                
-                $("#pop-up-status").html(dashboard.setStatus(data.status));  
+                $("#pop-up-grievance").html(data.grievance);
+                $("#pop-up-status").html(dashboard.setStatus(data.status));
 
                 (data.officer_msg && data.officer_msg!="") ? $("#pop-up-officer-msg").html(data.officer_msg) : $("#pop-up-officer-msg").html("No message for now");
                 (data.return_msg && data.return_msg!="") ? $("#pop-up-return-msg").html(data.return_msg) : $("#pop-up-return-msg").html("No message for now");
                 $("#pop-up-btn").html(dashboard.setButtonByRoleAndStatus(data.role,data.status,data.id));
                 $("#viewMorePopUp").css("display","flex");
                 $("#viewMorePopUp").css("opacity","1");
-                
+
             },
-            setButtonByRoleAndStatus:function(role,status,id){   
+            setButtonByRoleAndStatus:function(role,status,id){
 
                 if(role=={{config("constants.OFFICER_ROLE")}} && status=={{config("constants.PENDING")}}){
                     return '<button class="success" style="margin-right:5px" onclick="dashboard.openActionPopUp(`approve`,'+id+')">approve</button><button class="danger" onclick="dashboard.openActionPopUp(`rejected`,'+id+')">declaine</button>';
@@ -497,7 +497,7 @@
                 if((role=={{config("constants.PRINCIPAL_ROLE")}} || role=={{config("constants.PRINCIPAL_ROLE")}}) && status=={{config("constants.IN_PROGRESS")}}){
                     return '<button class="success" style="margin-right:5px" onclick="dashboard.openActionPopUp(`complete`,'+id+')">complete</button>';
                 }
-                
+
                 return "";
             },
             setStatus:function (status){
@@ -515,23 +515,23 @@
                     case {{config("constants.COMPLETED")}} : return '<span class="status navy" >Completed</span>';
                         break;
                 }
-                
+
             },
             closeViewMore:function (){
                 $("body").css("overflow","auto");
-                $("#viewMorePopUp").fadeOut(300); 
+                $("#viewMorePopUp").fadeOut(300);
                 setTimeout(()=>{
                     $("#sender_img").attr('src', dashboard.base_path + dashboard.default_img);
-                    $("#sender_name").html("Unknown Person");                  
+                    $("#sender_name").html("Unknown Person");
                     $("#pop-up-date").html("");
                     $("#pop-up-grievance").html("no grivance");
                     $("#pop-up-grievance-img").attr('src',"");
-                    $("#pop-up-status").html("");    
+                    $("#pop-up-status").html("");
                     $("#pop-up-officer-msg").html("No message");
                     $("#pop-up-return-msg").html("No message");
-                    $("#pop-up-btn").html(""); 
-                },300)           
-                               
+                    $("#pop-up-btn").html("");
+                },300)
+
             },
             makeRow: function(rowData,id,noMessage=false){
                 var row = "";
@@ -549,18 +549,18 @@
                     show_identity:rowData.show_identity,
                     role:{{Auth::user()->role}},
                 }
-                if(noMessage==false){                    
+                if(noMessage==false){
                     row += '<div class="t-row">';
                     row +=     '<div class="td">'+id+'</div>';
-                    row +=      '<div class="td">'+rowData.title+'</div>';                    
+                    row +=      '<div class="td">'+rowData.title+'</div>';
                     row +=      '<div class="td">'+dashboard.setStatus(rowData.status)+'</div>';
                     row +=      "<div class='td'><button class='view-more navy' onclick='dashboard.openViewMore("+JSON.stringify(data)+")'>view more</button></div>";
                     if(data.role!={{config('constants.STUDENT_ROLE')}}){
                         row +=      '<div class="td">'+dashboard.setButtonByRoleAndStatus({{Auth::user()->role}},rowData.status,rowData.id)+'</div>';
                     }
-                    
+
                     row += '</div>';
-                    
+
                 }else{
                     row += '<div class="t-row">';
                     row +=     '<div class="td">No data found</div>';
@@ -569,7 +569,7 @@
                 return row;
             },
             setCount:function(data){
-                
+
                 var status_count = {
                     all:0,
                     pending:0,
@@ -580,7 +580,7 @@
                 }
                 var count = 0;
                 for(let temp of data){
-                    
+
                     switch(parseInt(temp.status)){
                         case {{config('constants.PENDING')}}: status_count['pending'] = temp.total;
                         break;
@@ -593,7 +593,7 @@
                         case {{config('constants.COMPLETED')}}: status_count['completed'] = temp.total;
                         break;
                     }
-                    
+
                     count += temp.total;
                 }
                 status_count['all'] = count;
@@ -624,7 +624,7 @@
                     $("#dashboard_pie_chart").html(HTML_DOM);
                 }
                 createPieCharts();
-                
+
             },
             getRequestCount:function(){
                 var data = {
@@ -639,11 +639,11 @@
                     method:"POST",
                     data:data,
                     success:function(data){
-                        
+
                         var StatusDeatails = JSON.parse(data);
                         if(StatusDeatails.status==true){
                             var counts = dashboard.setCount(StatusDeatails.data);
-                            dashboard.renderChartsInDOM(counts);                            
+                            dashboard.renderChartsInDOM(counts);
                         }else{
                             dashboard.renderChartsInDOM(
                                 {
@@ -657,14 +657,14 @@
                             );
                         }
                         $("#chart_loader").hide();
-                        
+
                     }
-                    
+
                 })
             },
             getGrivanceList:function(page_no){
                 $("#table_loader").css('display','flex');
-                
+
                 var data = {
                     'department': $("#department_of_list").val(),
                     'from_date' : $("#start_date_table").val(),
@@ -687,19 +687,19 @@
                                     '<div class="t-row"><div class="not-found-message">No Grievance found</div></div>'
                                 )
                             }else{
-                                var count = 1;                                
+                                var count = 1;
                                 var tbody = "";
-                                for(let temp of GrivanceData.data){                                    
+                                for(let temp of GrivanceData.data){
                                     tbody += dashboard.makeRow(temp,((page_no-1)*10)+count);
                                     count++;
                                 }
                                 $("#grievance_table_body").html(
                                     tbody
                                 )
-                                
+
                             }
                             pagination.initialize(GrivanceData.count,(id)=>{dashboard.getGrivanceList(id)},"myPagination") ;
-                            
+
                         }else{
                             $("#grievance_table_body").html(
                                 '<div class="t-row"><div class="not-found-message">No Grievance found</div></div>'
@@ -708,7 +708,7 @@
                         $("#table_loader").hide();
                     }
 
-                    
+
                 })
             },
             updateStatus(){
@@ -724,27 +724,27 @@
                     data:data,
                     success:function(data){
                         var UpdateStatus = JSON.parse(data);
-                        if(UpdateStatus.status==true){                           
+                        if(UpdateStatus.status==true){
                             dashboard.getGrivanceList(1);
                             dashboard.getRequestCount();
                             // alert(UpdateStatus.message);
                             showAlert(UpdateStatus.message,"success");
                             dashboard.closeViewMore();
                             dashboard.closeActionPopUp();
-                            
+
                         }else{
                             showAlert(UpdateStatus.message,"fail");
                         //    alert(UpdateStatus.message)
                         }
                     }
-                    
+
                 })
-                
+
             }
         }
-        
 
 
-        
+
+
     </script>
 @endsection

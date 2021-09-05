@@ -19,12 +19,12 @@
                             </span>
                             <span>Home</span>
                         </a>
-                    </li>            
+                    </li>
                 @else
                     <li>
                         <a href="{{ route('dashboard') }}" class="{{Route::currentRouteName()=='dashboard'?'active':''}}">
                             <span>
-                                
+
                                 <svg  width="20" height="20" viewBox="0 0 512 512"  >
                                     <path d="M176,448H80V256h96V448z M304,160h-96v288h96V160z M432,64h-96v384h96V64z M512,0v512H0V0H512z M480,32H32v56h288v16H32v48  h160v16H32v48h160v16H32v48h32v16H32v48h32v16H32v48h32v16H32v56h448v-56h-32v-16h32v-48h-32v-16h32v-48h-32v-16h32v-48h-32v-16h32  v-48h-32v-16h32v-48h-32V88h32V32z" fill="white"/>
                                 </svg>
@@ -33,8 +33,8 @@
                         </a>
                     </li>
                 @endif
-                
-                @if(Auth::user() && Auth::user()->role == config("constants.STUDENT_ROLE"))                
+
+                @if(Auth::user()->role == config("constants.STUDENT_ROLE"))
                     <li>
                         <a href="{{ route('addGrivanceView') }}" class="{{Route::currentRouteName()=='addGrivanceView'?'active':''}}">
                             <span>
@@ -70,10 +70,10 @@
                         </span>
                         <span>About Us</span>
                     </a>
-                </li>                           
-    
+                </li>
+
             </ul>
-            
+
             <ul>
                 @if(Auth::user())
                 <li>
@@ -117,8 +117,8 @@
                 @endif
                 @if(Auth::user())
                     <li>
-                                                
-                        <form action="{{ route('logout') }}"  style="width: 100%" method="POST">
+
+                        <form action="{{ route('logout') }}" style="width: 100%" method="POST">
                             @csrf
                             <a>
                             <span>
@@ -186,7 +186,7 @@
             </svg>
         </div>
     </div>
-    
+
 </header>
 
 <div class="alert-box fail-bg" id="alert_box">
@@ -207,18 +207,18 @@
     $(document).ready(()=>{
         hideLoader();
     })
-     function openNav(){           
+     function openNav(){
         if($("#left-nav").css('transform')=="matrix(1, 0, 0, 1, -250.4, 0)"){
             $("#left-nav").css("transform","translateX(0%)");
-            
+
         }else{
             $("#left-nav").css("transform","translateX(-100%)");
-        }       
+        }
     }
     function closeAlert(){
         $('#alert_box').animate({right:'-500px'},300,'linear',()=>{$('#alert_box').css('display','none');$('#alert_box').css('right','15px')});
     }
-    function showAlert(message,type){        
+    function showAlert(message,type){
         var alert_box =$("#alert_box");
         var alert_box_message =$("#alert_box .message");
         $("#alert_box").css('display','flex');
@@ -228,8 +228,8 @@
         (type == "success") ? alert_box.addClass('success-bg') : alert_box.addClass('fail-bg');
         setTimeout(()=>{
             closeAlert();
-        },5000)        
-        
+        },5000)
+
     }
     function showLoader(){
         $("#page_loader").show();
@@ -239,5 +239,5 @@
         $("#page_loader").hide();
         $("body").css('overflow','auto');
     }
-    
+
 </script>

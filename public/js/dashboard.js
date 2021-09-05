@@ -31,7 +31,7 @@ function sliceSize(dataNum, dataTotal) {
     }
   }
   
-  function createPie(id) {    
+  function createPie(id) {
     var
       listData      = [],
       listTotal     = 0,

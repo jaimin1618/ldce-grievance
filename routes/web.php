@@ -34,9 +34,12 @@ Route::post('add-grivance/add',[Complain::class,'insert'])->name('addGrivance');
 
 Route::get('dashboard',[Dashboard::class,'index'])->name('dashboard');
 
+// MANAGE DEPARTMENTS SECTION - departments_page
 Route::get('department',[Department::class,'index'])->name('department');
-
-
+Route::get('get_data/{id}', [Department::class, 'show'])->name('department.show');
+Route::post('department/add-dept/', [Department::class, 'store'])->name('dept.add');
+Route::post('department/delete-dept/', [Department::class, 'delete'])->name('dept.delete');
+Route::post('department/edit-dept/', [Department::class, 'update'])->name('dept.update');
 
 Route::get('manage-users',[ManageUser::class,'index'])->name('manageUsers');
 Route::get('profile',[Profile::class,'index'])->name('profile');
