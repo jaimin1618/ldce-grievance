@@ -28,9 +28,12 @@ Route::post('complain/get-data/',[Complain::class,'get_data'])->name('getData');
 Route::post('complain/get-count/',[Complain::class,'get_complain_counts'])->name('getCount');
 Route::get('dashboard',[Dashboard::class,'index'])->name('dashboard');
 
+// MANAGE DEPARTMENTS SECTION - departments_page
 Route::get('department',[Department::class,'index'])->name('department');
-
-
+Route::get('get_data/{id}', [Department::class, 'show'])->name('department.show');
+Route::post('department/add-dept/', [Department::class, 'store'])->name('dept.add');
+Route::post('department/delete-dept/', [Department::class, 'delete'])->name('dept.delete');
+Route::post('department/edit-dept/', [Department::class, 'update'])->name('dept.update');
 
 Route::get('manage-users',[ManageUser::class,'index'])->name('manageUsers');
 Route::view('aboutus', 'pages/aboutus')->name('aboutus');

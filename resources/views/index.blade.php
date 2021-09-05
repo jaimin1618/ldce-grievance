@@ -24,7 +24,7 @@
         }
     </style>
 </head>
-<body>    
+<body>
     @yield('body')
     @yield('scripts')
 </body>

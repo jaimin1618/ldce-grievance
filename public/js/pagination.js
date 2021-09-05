@@ -17,8 +17,8 @@ var pagination = {
         pagination.onClick = (id)=>{
             this.current = id;
             onclick(id);
-            pagination.create(pagination.start);                    
-        }                
+            pagination.create(pagination.start);
+        }
         pagination.pages = Math.ceil(pagination.count/pagination.limit);
         pagination.create(pagination.start);
     },
@@ -81,17 +81,17 @@ var pagination = {
         
         pagination_container +=         '</div>'
         pagination_container +=     '</div>'
-        pagination_container +='</div>'                
+        pagination_container +='</div>'
         document.getElementById(pagination.targetId).innerHTML = pagination_container;
     },
     create:function(start_point){
 
         pagination.start = start_point;
         if(start_point+pagination.maxBtn>pagination.pages){
-            pagination.end = pagination.pages+1;                                        
-        }else{                               
+            pagination.end = pagination.pages+1;
+        }else{
                   
-            pagination.end = start_point+pagination.maxBtn;                    
+            pagination.end = start_point+pagination.maxBtn;
         }
         if(pagination.end>pagination.pages){
             pagination.next_btn_disabled = true
@@ -103,8 +103,8 @@ var pagination = {
             pagination.back_btn_disabled = true
         }else{
             pagination.back_btn_disabled = false
-        }   
-        pagination.create_container();                
+        }
+        pagination.create_container();
 
     },
     next:function(){

@@ -19,7 +19,7 @@
                             </span>
                             <span>Home</span>
                         </a>
-                    </li>            
+                    </li>
                 @else
                     <li>
                         <a href="{{ route('dashboard') }}" class="{{Route::currentRouteName()=='dashboard'?'active':''}}">
@@ -34,7 +34,7 @@
                     </li>
                 @endif
                 
-                @if(Auth::user()->role == config("constants.STUDENT_ROLE"))                
+                @if(Auth::user()->role == config("constants.STUDENT_ROLE"))
                     <li>
                         <a href="">
                             <span>
@@ -70,7 +70,7 @@
                         </span>
                         <span>About Us</span>
                     </a>
-                </li>                           
+                </li>
     
             </ul>
             
@@ -184,7 +184,7 @@
     
 </header>
 <script>
-     function openNav(){           
+     function openNav(){
         if($("#left-nav").css('transform')=="matrix(1, 0, 0, 1, -250.4, 0)"){
             $("#left-nav").css("transform","translateX(0%)");
             
