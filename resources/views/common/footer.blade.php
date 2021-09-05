@@ -1,3 +1,4 @@
+@if(Route::currentRouteName()!="profile")
 <footer class="primary-color">
     <div class="row">
         <div class="footer-box">
@@ -119,3 +120,4 @@
         })
     </script>
 </footer>
+@endif

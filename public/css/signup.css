@@ -49,9 +49,9 @@ body {
 
 .r-div .r-img {
     position: fixed;
-    top: -100PX;
-    right: -100px;
-    transform: rotate( 25deg );
+    top: -140px;
+    right: 0px;
+    /* transform: rotate( 25deg ); */
     height: 500PX;
     width: 400px;
 }
@@ -74,6 +74,9 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+#page_img{
+    transition: all 0.1s linear;
 }
 
     .form-fields .input {
@@ -99,13 +102,22 @@ body {
 
     .form-fields button {
         width: 250px;
-        height: 40px;
-        background-color: #0DD3DE;
+        cursor: pointer;
+        height: 40px;        
         color: white;
         border: none;
         margin: 10px;
         margin-top: 20px;
         border-radius: 100px;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+      /* Firefox */
     }
 
 .input img {

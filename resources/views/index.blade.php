@@ -12,10 +12,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{asset('css/header.css')}}" />
     <link rel="stylesheet" href="{{asset('css/common.css')}}" />
-    <link rel="stylesheet" href="{{asset('css/footer.css')}}" />
+    
     
     <title>@yield('title')</title>
     @yield('styles')
+    <link rel="stylesheet" href="{{asset('css/footer.css')}}" />
     <style>
         *{
             margin: 0px;
