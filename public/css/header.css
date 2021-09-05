@@ -46,6 +46,7 @@ header{
     height: 75px;        
     flex-direction: column;
     background-color: #283891;
+    border-bottom: 1px solid lightgray;
 }
 .header{
     position: relative;

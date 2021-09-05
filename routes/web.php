@@ -4,6 +4,7 @@
 
 use App\Http\Controllers\Profile;
 use App\Http\Controllers\Complain;
+use App\Http\Controllers\Contactus;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Department;
 use App\Http\Controllers\ManageUser;
@@ -41,6 +42,9 @@ Route::get('manage-users',[ManageUser::class,'index'])->name('manageUsers');
 Route::get('profile',[Profile::class,'index'])->name('profile');
 Route::post('user/save',[Profile::class,'saveData'])->name('saveUser');
 Route::view('aboutus', 'pages/aboutus')->name('aboutus');
+
+Route::post('contactus/save',[Contactus::class,'insert'])->name('saveContactUs');
+Route::get('contactus',[Contactus::class,'index'])->name('contactUs');
 Auth::routes();
 
 

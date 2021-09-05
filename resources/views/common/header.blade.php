@@ -4,7 +4,7 @@
             <ul>
                 @if(!Auth::user())
                     <li>
-                        <a href="" class="{{Route::currentRouteName()=='home'?'active':''}}">
+                        <a href="{{ route('H') }}" class="{{Route::currentRouteName()=='home' || Route::currentRouteName()=='H'?'active':''}}">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="icons8-home" width="20" height="20" viewBox="0 0 30.691 26.506">
                                     <defs>
@@ -34,7 +34,7 @@
                     </li>
                 @endif
                 
-                @if(Auth::user()->role == config("constants.STUDENT_ROLE"))                
+                @if(Auth::user() && Auth::user()->role == config("constants.STUDENT_ROLE"))                
                     <li>
                         <a href="{{ route('addGrivanceView') }}" class="{{Route::currentRouteName()=='addGrivanceView'?'active':''}}">
                             <span>
@@ -75,8 +75,9 @@
             </ul>
             
             <ul>
+                @if(Auth::user())
                 <li>
-                    <a href="">
+                    <a href="{{ route('profile') }}" class="{{Route::currentRouteName()=='profile'?'active':''}}">
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" id="surface1" width="23" height="23" viewBox="0 0 27.05 26.52">
                                 <defs>
@@ -93,7 +94,8 @@
                         <span>Profile</span>
                     </a>
                 </li>
-                @if(Auth::user()->role==config("constants.PRINCIPAL_ROLE") || Auth::user()->role==config("constants.SUPER_ADMIN_ROLE"))
+                @endif
+                @if(Auth::user() && (Auth::user()->role==config("constants.PRINCIPAL_ROLE") || Auth::user()->role==config("constants.SUPER_ADMIN_ROLE")))
                     <li>
                         <a href="{{ route('department') }}" class="{{Route::currentRouteName()=='department' || Route::currentRouteName()=='manage-users'?'active':''}}">
                             <span>
@@ -116,7 +118,7 @@
                 @if(Auth::user())
                     <li>
                                                 
-                        <form action="{{ route('logout') }}" style="width: 100%" method="POST">
+                        <form action="{{ route('logout') }}"  style="width: 100%" method="POST">
                             @csrf
                             <a>
                             <span>
@@ -140,7 +142,7 @@
                     </li>
                 @else
                     <li>
-                        <a href="{{ route('login') }}">
+                        <a href="{{ route('login') }}" target="_blank" class="{{Route::currentRouteName()=='login'?'active':''}}">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 32 26.14">
                                     <defs>
@@ -160,7 +162,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('register') }}">
+                        <a href="{{ route('register') }}" target="_blank" class="{{Route::currentRouteName()=='register'?'active':''}}">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 26.184 27.484">
                                     <g id="surface1" transform="translate(-2.445 -1.008)">
