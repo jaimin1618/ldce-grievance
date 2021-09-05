@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\StatusMail;
 use App\Models\Complain as ComplainModel;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -15,11 +16,27 @@ class Complain extends My_controller
     public function __construct() {
         $this->model = new ComplainModel();
     }
+    public function addComplain(){
+        if(Auth::user()->role==config('constants.STUDENT_ROLE')){
+            return view('pages.add_grievance');
+        }else{
+            return redirect(route('dashboard'));
+        }        
+    }
     public function insert(Request $req){
         if(isset($req)){
             $data = $req->input();
             if(isset($this->user()->id) && isset($data['_token'])){
                 $user_id =  $this->user()->id;
+                $title = "";
+                if(isset($data['title']) && trim($data['title'])!=""){
+                    if(strlen($data['title'])>100){
+                        return $this->return_message(false,"Title can be maximum 100 character long");
+                    }
+                    $title = $data['title'];
+                }else{
+                    return $this->return_message(false,"Title is required field");
+                }
                 $message = "";
                 if(isset($data['message']) && trim($data['message'])!=""){
                     $message = $data['message'];
@@ -27,6 +44,7 @@ class Complain extends My_controller
                     return $this->return_message(false,"Message is required field");
                 }
                 $Insertdata = [
+                    "title"=>$title,
                     'message'=>$message,
                     'user_id'=>$this->user()->id,
                     'department'=>$this->user()->department,
@@ -38,6 +56,15 @@ class Complain extends My_controller
                 }
                 if($req->hasFile('grievanceimg')){
                     $imageName = $req->file('grievanceimg')->getClientOriginalName();
+                    $fileSize = $req->file('grievanceimg')->getSize();
+                    $fileType = $req->file('grievanceimg')->getClientMimeType();
+
+                    if($fileSize>10000000){
+                        return  $this->return_message(false,"file size must be less than 10MB");
+                    }
+                    if(!($fileType=="image/png" || $fileType=="image/jpeg" || $fileType=="image/jpg")){
+                        return  $this->return_message(false,"Only png | jpeg | jpg are allowed types ");
+                    }                    
                     $timestamp = strtotime("now");
                     $imageName = "grieavance_img".$user_id.$timestamp.".".explode(".",$imageName)[1];                     
                     $path = 'public/images/grievanceimages';
@@ -48,7 +75,9 @@ class Complain extends My_controller
                     }                                          
                    
                 }
-                
+                // echo "<pre>";
+                // print_r($Insertdata);
+                // die;
                 if(!$this->model->insert_complain($Insertdata)){
                     return $this->return_message(false,"OOps!! something went wrong.");
                 }
@@ -93,7 +122,7 @@ class Complain extends My_controller
                         $mailData = [
                             "status" => $changedStatus,
                             "name"=>$userData[0]->name,
-                            "message"=>$message
+                            "given_message"=>$message
                         ];
 
                         Mail::to($userData[0]->email)->send(new StatusMail($mailData));
@@ -119,11 +148,12 @@ class Complain extends My_controller
                     $stattusMessage = "Complain status changed to \'in Progress\' successfully";
                     if($status==config('constants.COMPLETED')){
                         $stattusMessage = "Complain status changed to \'Completed\' successfully";
+                        $changedStatus = "completed";
                     }
                     $mailData = [
                         "status" => $changedStatus,
                         "name"=>$userData[0]->name,
-                        "message"=>$message
+                        "given_message"=>$message
                     ];
 
                     Mail::to($userData[0]->email)->send(new StatusMail($mailData));
@@ -245,8 +275,15 @@ class Complain extends My_controller
                 $config['from_date'] = $data['from_date'];
             }
             if(isset($data['end_date']) && $data['end_date']!=""){
-                $config['end_date'] = $data['end_date'];
+                $to_date = $data['end_date'];
+                $to_date = trim($to_date);
+                $datetime = new DateTime($to_date);
+                $datetime->modify('+1 day');
+                $to_date = $datetime->format('Y-m-d');                
+                $config['end_date'] = $to_date;
             }
+            // print_r($config);
+            // die;
             $returnData = $this->model->getComplainData($config);
             if(isset($returnData) && !empty($returnData)){
                 $returnData['status'] = true;
@@ -272,7 +309,9 @@ class Complain extends My_controller
         if(isset($data['to_date'])){
             $to_date = $data['to_date'];
             $to_date = trim($to_date);
-            $to_date = substr_replace($to_date,((int)(substr(trim($to_date),8))+1),8);
+            $datetime = new DateTime($to_date);
+            $datetime->modify('+1 day');
+            $to_date = $datetime->format('Y-m-d');             
         }
         $passData = [
             'department'=>$department,
@@ -282,7 +321,6 @@ class Complain extends My_controller
         if(Auth::user()->role==config('constants.STUDENT_ROLE')){
             $passData['user_id'] = Auth::user()->id;
         }
-
         $complains = $this->model->getComplainCount($passData);
         if(isset($complains) && !empty($complains)){
             return json_encode([

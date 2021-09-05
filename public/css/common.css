@@ -11,11 +11,104 @@ main{
     align-items: center;
     justify-content: center;
 }
+body{
+    overflow: hidden;
+}
 .primary-color{
     background-color: #283891;
 }
 .primary-txt{
     color: #283891;
+}
+.success-bg{
+    background-color: rgb(38, 199, 10);
+    color: white;
+}
+.fail-bg{
+    background-color: rgb(224, 67, 67);
+    color: white;
+}
+.inner_loader_container{
+    position: absolute;
+    top: 0px;
+    left: 0px;    
+    background-color: white;
+    z-index: 11;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.inner_loader_box{
+    width: 90%;
+    max-width: 300px;
+}
+.inner_loader_box img{
+    width: 100%;
+    height: auto;
+}
+@keyframes rightIn{
+    0%{
+        transform: translateX(100%);
+    }
+    100%{
+        transform: translateX(0%);
+    }
+}
+@keyframes rightIn {
+    0% {transform: translateX(100%);}    
+    100% {transform: translateX(0%);}
+  }
+.alert-box{
+    position: fixed;
+    top: 85px;
+    right: 15px;
+    align-items: center;    
+    width: auto;
+    max-width: 90%;
+    z-index: 1111111111111111111111111111;
+    display: none;
+    padding: 8px 15px;
+    animation: rightIn 0.1s linear;
+    border-radius: 5px;
+}
+.loader-container{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    z-index: 111;
+}
+.loader-container .loader-box{
+    width: 90%;
+    display: flex;
+    max-width: 500px;
+    background-color: white;
+
+}
+.loader-container .loader-box img{
+    width: 100%;
+    display: flex;
+    height: auto;
+}
+.alert-box span{
+    display: flex;
+    align-items: center;
+}
+
+.message{
+    color: inherit;
+    display: flex;
+}
+.alert-box span:nth-child(2){
+    margin-left: 10px;
+    cursor: pointer;
 }
 @media (max-width:768px){
     main{

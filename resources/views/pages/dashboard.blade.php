@@ -5,8 +5,12 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/pagination.css') }}" />
     <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
+    <style>
+        input,select{
+            background-color: white
+        }
+    </style>
 
-    
 @endsection
 
 @section('content')
@@ -24,11 +28,11 @@
                 </div>
             </div>
             <div class="dasboard-filter">
-               
+
                     <div class="dashboard-filter-box">
                         @if (isset($departments) && !empty($departments))
                         <span>Department : </span>
-                        
+
                         <select name="department_chart" id="department_chart">
                             <option value="-1">All</option>
                             @foreach ($departments as $department)
@@ -39,17 +43,21 @@
                         @else
                             <input type="hidden" name="department_chart" id="department_chart" value="{{Auth::user()->department}}">
                         @endif
-                        
+
                     </div>
-                
+
                 <div class="dashboard-filter-box">
                     <input type="date" name="start_date_chart" id="start_date_chart" value="@if(isset($last_month_date)){{$last_month_date}}@endif" />
                         -
                     <input type="date" name="end_date_chart" id="end_date_chart" max="@if(isset($today_date)){{$today_date}}@endif" value="@if(isset($today_date)){{$today_date}}@endif">
                 </div>
             </div>
-            <div class="analysis d-f-c">
-                
+            <div class="analysis d-f-c" style="position: relative" id="analysis_container">
+                <div class="inner_loader_container" id="chart_loader">
+                    <div class="inner_loader_box">
+                        <img src="{{ asset('images/common/loader.gif') }}" alt="">
+                    </div>
+                </div>
                 <div class="analysis-grid-container">
                     <div class="analysis-grid ">
                         <div class="card d-f-c">
@@ -90,7 +98,7 @@
                 </div>
                 <div class="analysis-grid-chart">
                     <div class="card">
-                        
+
                         <div class="wrapper">
                             <div class="pie-charts">
                             <div class="pieID--status pie-chart--wrapper">
@@ -105,13 +113,13 @@
                                 </ul>
                                 </div>
                             </div>
-                            
+
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                
+
+
             </div>
         </div>
     </div>
@@ -152,7 +160,7 @@
                             @endforeach
                         </select>
                     @endif
-                    
+
                     <select name="by_status" id="by_status">
                         <option value="">All Status</option>
                         <option value="{{ config('constants.PENDING') }}" @if(isset($default_status) && $default_status==config('constants.PENDING')) {{"selected"}} @endif >Pending</option>
@@ -166,11 +174,16 @@
                     <input type="date"  name="start_date_table" id="start_date_table" value="@if(isset($last_month_date)){{$last_month_date}}@endif"/>
                         -
                     <input type="date" name="end_date_table" id="end_date_table" max="@if(isset($today_date)){{$today_date}}@endif" value="@if(isset($today_date)){{$today_date}}@endif"/>
-                    
+
                 </div>
             </div>
-            <div class="dashboard-table">
-                <div class="table">
+            <div class="dashboard-table" style="position: relative;min-height:300px">
+                <div class="inner_loader_container" id="table_loader">
+                    <div class="inner_loader_box">
+                        <img src="{{ asset('images/common/loader.gif') }}" alt="">
+                    </div>
+                </div>
+                <div class="table ">
                     <div class="t-row t-heading">
                         <div class="td">id</div>
                         <div class="td">Grievance</div>
@@ -181,7 +194,7 @@
                         @endif
                     </div>
                     <div class="t-body" id="grievance_table_body">
-                        
+
                     </div>
                 </div>
             </div>
@@ -208,9 +221,17 @@
                 <div class="pop-up-body">
                     <div class="pop-up-row">
                         <span class="title">
+                            Title :
+                        </span>
+                        <span class="value" style="flex-direction: column" id="pop-up-grievance-title">
+                            no grievance
+                        </span>
+                    </div>
+                    <div class="pop-up-row">
+                        <span class="title">
                             Grievance :
                         </span>
-                        <span class="value" id="pop-up-grievance">
+                        <span class="value report-area" style="flex-direction: column" id="pop-up-grievance">
                             no grievance
                         </span>
                     </div>
@@ -234,19 +255,19 @@
                         <span class="title">
                             Officer's message :
                         </span>
-                        <span class="value" id="pop-up-officer-msg">
-                            
+                        <span class="value report-area" style="flex-direction: column" id="pop-up-officer-msg">
+
                         </span>
                     </div>
                     <div class="pop-up-row">
                         <span class="title">
                             Return message :
                         </span>
-                        <span class="value" id="pop-up-return-msg">
-                            
+                        <span class="value report-area" style="flex-direction: column" id="pop-up-return-msg">
+
                         </span>
                     </div>
-                    
+
                     <div class="pop-up-row">
                         <div class="btn-area" id="pop-up-btn">
                             <button class="primary-color">
@@ -255,7 +276,7 @@
                         </div>
                     </div>
                 </div>
-                    
+
             </div>
         </div>
     </div>
@@ -296,9 +317,9 @@
         </div>
     </div>
 
-    
-    
-    
+
+
+
 @endsection
 @section('scripts')
 <script src="{{ asset('js/dashboard.js') }}"></script>
@@ -308,11 +329,11 @@
             var height = $(".analysis-grid-container").css('height');
             $(".analysis-grid-chart").css('height',height);
               dashboard.initialize();
-          
-        })
-        
 
-        
+        })
+
+
+
         // data = {
             // name:,
             // sender_img:,
@@ -328,6 +349,7 @@
         var dashboard = {
             default_img : "images/avtar1.jpg",
             base_path : "{{asset('')}}",
+            grivance_img_folder:"storage/images/grievanceimages/",
             editor:"",
             initialize:function(){
                 dashboard.getRequestCount();
@@ -341,9 +363,6 @@
                 $("#end_date_chart").on('change',function(){
                     dashboard.getRequestCount();
                 })
-
-
-
                 $("#search").on('input',function(){
                     dashboard.getGrivanceList(1);
                 })
@@ -365,7 +384,7 @@
 
                 dashboard.initializeEditor();
 
-               
+
             },
             initializeEditor:function(){
                 ClassicEditor
@@ -401,7 +420,7 @@
                 dashboard.destroyEditor();
                 dashboard.initializeEditor();
                 dashboard.editor.setData("");
-                
+
                 $("#action_complain_id").val(id);
                 if(action=="approve"){
                     $("#action_status").val({{config("constants.APPROVED")}});
@@ -420,7 +439,7 @@
                     $("#action_message_heading").html("Are You sure to Complete!!");
                     $("#action-pop-up-btn").html("<button onClick='dashboard.updateStatus()' class='success'>Complete</button>");
                 }
-                
+
             },
             closeActionPopUp(){
                 $("#actionPopUp").fadeOut();
@@ -438,15 +457,16 @@
                     $("#sender_img").attr('src', dashboard.base_path + dashboard.default_img);
                     $("#sender_name").html("Unknown Person");
                 }
-                
+
                 if(data.grievance_img && data.grievance_img!=""){
                     $("#grivance-img").css('display','flex');
-                    $("#pop-up-grievance-img").attr('src',data.grievance_img);
+                    $("#pop-up-grievance-img").attr('src', dashboard.base_path + dashboard.grivance_img_folder +data.grievance_img);
                 }else{
                     $("#grivance-img").css('display','none');
                 }
 
                 (data.date && data.date!="")?$("#pop-up-date").html(data.date.slice(0, 10)) : $("#pop-up-date").html("");
+                $("#pop-up-grievance-title").html(data.title)
                 $("#pop-up-grievance").html(data.grievance);
                 $("#pop-up-status").html(dashboard.setStatus(data.status));
 
@@ -455,7 +475,7 @@
                 $("#pop-up-btn").html(dashboard.setButtonByRoleAndStatus(data.role,data.status,data.id));
                 $("#viewMorePopUp").css("display","flex");
                 $("#viewMorePopUp").css("opacity","1");
-                
+
             },
             setButtonByRoleAndStatus:function(role,status,id){
 
@@ -477,7 +497,7 @@
                 if((role=={{config("constants.PRINCIPAL_ROLE")}} || role=={{config("constants.PRINCIPAL_ROLE")}}) && status=={{config("constants.IN_PROGRESS")}}){
                     return '<button class="success" style="margin-right:5px" onclick="dashboard.openActionPopUp(`complete`,'+id+')">complete</button>';
                 }
-                
+
                 return "";
             },
             setStatus:function (status){
@@ -495,7 +515,7 @@
                     case {{config("constants.COMPLETED")}} : return '<span class="status navy" >Completed</span>';
                         break;
                 }
-                
+
             },
             closeViewMore:function (){
                 $("body").css("overflow","auto");
@@ -511,12 +531,13 @@
                     $("#pop-up-return-msg").html("No message");
                     $("#pop-up-btn").html("");
                 },300)
-                               
+
             },
             makeRow: function(rowData,id,noMessage=false){
                 var row = "";
                 var data = {
                     id:rowData.id,
+                    title:rowData.title,
                     name:rowData.name,
                     sender_img:rowData.profile_pic,
                     date:rowData.created_at,
@@ -531,15 +552,15 @@
                 if(noMessage==false){
                     row += '<div class="t-row">';
                     row +=     '<div class="td">'+id+'</div>';
-                    row +=      '<div class="td">'+rowData.message+'</div>';
+                    row +=      '<div class="td">'+rowData.title+'</div>';
                     row +=      '<div class="td">'+dashboard.setStatus(rowData.status)+'</div>';
                     row +=      "<div class='td'><button class='view-more navy' onclick='dashboard.openViewMore("+JSON.stringify(data)+")'>view more</button></div>";
                     if(data.role!={{config('constants.STUDENT_ROLE')}}){
                         row +=      '<div class="td">'+dashboard.setButtonByRoleAndStatus({{Auth::user()->role}},rowData.status,rowData.id)+'</div>';
                     }
-                    
+
                     row += '</div>';
-                    
+
                 }else{
                     row += '<div class="t-row">';
                     row +=     '<div class="td">No data found</div>';
@@ -548,7 +569,7 @@
                 return row;
             },
             setCount:function(data){
-                
+
                 var status_count = {
                     all:0,
                     pending:0,
@@ -559,7 +580,7 @@
                 }
                 var count = 0;
                 for(let temp of data){
-                    
+
                     switch(parseInt(temp.status)){
                         case {{config('constants.PENDING')}}: status_count['pending'] = temp.total;
                         break;
@@ -572,7 +593,7 @@
                         case {{config('constants.COMPLETED')}}: status_count['completed'] = temp.total;
                         break;
                     }
-                    
+
                     count += temp.total;
                 }
                 status_count['all'] = count;
@@ -603,7 +624,7 @@
                     $("#dashboard_pie_chart").html(HTML_DOM);
                 }
                 createPieCharts();
-                
+
             },
             getRequestCount:function(){
                 var data = {
@@ -612,11 +633,13 @@
                     'end_date' : $("#end_date_chart").val(),
                     "_token": "{{ csrf_token() }}",
                 }
+                $("#chart_loader").css('display','flex');
                 $.ajax({
                     url: "{{ route('getCount') }}",
                     method:"POST",
                     data:data,
                     success:function(data){
+
                         var StatusDeatails = JSON.parse(data);
                         if(StatusDeatails.status==true){
                             var counts = dashboard.setCount(StatusDeatails.data);
@@ -633,11 +656,15 @@
                                 }
                             );
                         }
+                        $("#chart_loader").hide();
+
                     }
-                    
+
                 })
             },
             getGrivanceList:function(page_no){
+                $("#table_loader").css('display','flex');
+
                 var data = {
                     'department': $("#department_of_list").val(),
                     'from_date' : $("#start_date_table").val(),
@@ -669,17 +696,19 @@
                                 $("#grievance_table_body").html(
                                     tbody
                                 )
-                                
+
                             }
                             pagination.initialize(GrivanceData.count,(id)=>{dashboard.getGrivanceList(id)},"myPagination") ;
-                            
+
                         }else{
                             $("#grievance_table_body").html(
                                 '<div class="t-row"><div class="not-found-message">No Grievance found</div></div>'
                             )
                         }
+                        $("#table_loader").hide();
                     }
-                    
+
+
                 })
             },
             updateStatus(){
@@ -698,22 +727,24 @@
                         if(UpdateStatus.status==true){
                             dashboard.getGrivanceList(1);
                             dashboard.getRequestCount();
-                            alert(UpdateStatus.message);
+                            // alert(UpdateStatus.message);
+                            showAlert(UpdateStatus.message,"success");
                             dashboard.closeViewMore();
                             dashboard.closeActionPopUp();
-                            
+
                         }else{
-                           alert(UpdateStatus.message)
+                            showAlert(UpdateStatus.message,"fail");
+                        //    alert(UpdateStatus.message)
                         }
                     }
-                    
+
                 })
-                
+
             }
         }
-        
 
 
-        
+
+
     </script>
 @endsection

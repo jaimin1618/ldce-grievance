@@ -23,7 +23,7 @@ body {
     position: fixed;
     height: 250px;
     width: 250px;
-    margin-top: 150px;
+    margin-top: 50px;
     margin-left: 150px;
     background: #0DD3DE;
 }
@@ -95,12 +95,12 @@ body {
     font-size: 30px;
 }
 
+
 .form-fields {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-top: 80px;
 }
 
 .form-fields .input {
@@ -127,11 +127,11 @@ body {
 .form-fields button {
     width: 250px;
     height: 40px;
-    background-color: #0DD3DE;
     color: white;
     border: none;
     margin: 10px;
     margin-top: 20px;
+    cursor: pointer;
     border-radius: 100px;
 }
 
