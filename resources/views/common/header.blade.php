@@ -34,7 +34,7 @@
                     </li>
                 @endif
 
-                @if(Auth::user()->role == config("constants.STUDENT_ROLE"))
+                @if(Auth::user() && Auth::user()->role == config("constants.STUDENT_ROLE"))
                     <li>
                         <a href="{{ route('addGrivanceView') }}" class="{{Route::currentRouteName()=='addGrivanceView'?'active':''}}">
                             <span>

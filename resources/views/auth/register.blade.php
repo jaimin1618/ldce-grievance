@@ -205,7 +205,7 @@
                 </button>
                 <div>
                     Already have an account?
-                    <a href="">Login</a>
+                    <a href="{{ route('login') }}">Login</a>
                 </div>
             </form>
         </div>
