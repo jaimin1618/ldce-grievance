@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use \App\Models\Department;
 
 class Profile extends Controller
 {
@@ -19,14 +20,13 @@ class Profile extends Controller
         $data['email'] = $user->email;
         $data['contact'] = $user->contact;
         $data['enrollment'] = $user->enrollment;
-        $data['department'] = $user->department;
-        $data['institute'] = $user->institute;
+        $data['department'] = Department::where("department_id","$user->department")->first()->department_name;
         return view('pages.profile')->with($data);
     }
 
     function saveData(Request $request){
         $validator = \Validator::make($request->all(),[
-            'email' => 'required',
+            'name' => 'required',
             'contact' => 'required'
         ]);
         if($validator->fails()){
@@ -36,11 +36,7 @@ class Profile extends Controller
         }
         $user = Auth::user();
         $user->name = $request->get('name');
-        $user->email = $request->get('email');
         $user->contact = $request->get('contact');
-        $user->enrollment = $request->get('enrollment');
-        $user->department = $request->get('department');
-        $user->institute = $request->get('institute');
         $user->save();
         return back();
     }
