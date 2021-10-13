@@ -55,7 +55,7 @@ Route::post('manage-users/delete-user/{id}', [ManageUser::class, 'delete'])->nam
 Route::post('manage-users/edit-user/', [ManageUser::class, 'edit'])->name('user.edit');
 
 
-// Route::get('profile',[Profile::class,'index'])->name('profile');
+Route::get('profile',[Profile::class,'index'])->name('profile');
 Route::post('user/save',[Profile::class,'saveData'])->name('saveUser');
 Route::view('aboutus', 'pages/aboutus')->name('aboutus');
 
