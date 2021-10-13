@@ -29,7 +29,7 @@ Route::post('complain/add/',[App\Http\Controllers\Complain::class,'insert'])->na
 Route::post('complain/update/',[Complain::class,'updateStatus'])->name('updateStatus');
 Route::post('complain/get-data/',[Complain::class,'get_data'])->name('getData');
 Route::post('complain/get-count/',[Complain::class,'get_complain_counts'])->name('getCount');
-
+Route::post("complain/get-data/export",[Complain::class,'get_data'])->name('export');
 Route::get('add-grivance',[Complain::class,'addComplain'])->name('addGrivanceView');
 Route::post('add-grivance/add',[Complain::class,'insert'])->name('addGrivance');
 
