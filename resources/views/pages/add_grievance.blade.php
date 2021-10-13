@@ -31,7 +31,7 @@
                     <span>write a small Title of your complain(maximum 100 character long)</span>
                     <span class="error" id="title_error"></span>
                 </div>
-                <input maxlength="200" type="text" name="title" id="title" placeholder="Enter Title.. ">
+                <input style="color: #777777" maxlength="100" type="text" name="title" id="title" placeholder="Enter Title.. ">
                 <div class="label" style="flex-direction: row">
                     <span id="title_length" style="flex: 0">0</span><span>/100</span>
                 </div>
@@ -43,6 +43,21 @@
                     <span class="error" id="grivance_message_error"></span>
                 </div>
                 <textarea placeholder="write Your grivance here..." name="message" id="editor" cols="30" rows="10"></textarea>        
+            </div>
+            <div class="form_group">
+                <div class="label">
+                    <label for="">Department : </label>
+                    <span>Select related department</span>
+                    <span class="error" id="grivance_message_error"></span>
+                </div>
+                <select name="department_id" id="department_id">
+                    @if(isset($departments) && !empty($departments))
+                        @foreach ($departments as $department)
+                            <option @if($department['department_id']==Auth::user()->department) {{"selected"}} @endif value="{{$department['department_id']}}">{{$department['department_name']}}</option>        
+                        @endforeach
+                    
+                    @endif
+                </select>
             </div>
             
             <div class="form_group">
@@ -59,13 +74,13 @@
                     
                 </div>
             </div>
-            <div class="form_group">
+            <div class="form_group" style="display: none">
                 <div class="label">
                     <label for="">Show identity :</label>
                     <span class="">Mark if you want to show your identity as complainer.</span>
                 </div>
                 <div class="check_box">
-                    <input type="checkbox" name="show_identity" id="show_identity">
+                    <input type="checkbox" checked name="show_identity" id="show_identity">
                 </div>                
             </div>
             <div class="from_group">

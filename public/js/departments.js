@@ -72,6 +72,7 @@ $(document).ready(function () {
                     NOTE: console.log(response.status); UNCOMMENT FOR ERROR/REVIEW
                 */
                 if (response.status == 1) {
+                    $("#myModal").hide()
                     $('#myModal .success').css('display', 'block');
                     setTimeout(function () {
                         $('#myModal .success').fadeOut('slow');
@@ -268,11 +269,11 @@ $(document).ready(function () {
                         $('#edit_success').css('display', 'block');
                         setTimeout(function () {
                             $('#edit_success').fadeOut('slow');
-                        }, 3000);
+                        }, 500);
 
                         setTimeout(function () {
                             $('#editModal').fadeOut('slow');
-                        }, 4000);
+                        }, 500);
 
                         // NOTE: refresh ...
                         $('#tbody').empty();
