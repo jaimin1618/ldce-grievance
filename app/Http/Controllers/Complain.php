@@ -21,7 +21,7 @@ class Complain extends My_controller
             return view('pages.add_grievance');
         }else{
             return redirect(route('dashboard'));
-        }        
+        }
     }
     public function insert(Request $req){
         if(isset($req)){
@@ -49,7 +49,7 @@ class Complain extends My_controller
                     'user_id'=>$this->user()->id,
                     'department'=>$this->user()->department,
                     'institute'=>$this->user()->institute,
-                    'status'=>config('constants.PENDING'),                    
+                    'status'=>config('constants.PENDING'),
                 ];
                 if(isset($data['show_identity'])){
                     $Insertdata['show_identity'] = 1;
@@ -64,15 +64,15 @@ class Complain extends My_controller
                     }
                     if(!($fileType=="image/png" || $fileType=="image/jpeg" || $fileType=="image/jpg")){
                         return  $this->return_message(false,"Only png | jpeg | jpg are allowed types ");
-                    }                    
+                    }
                     $timestamp = strtotime("now");
-                    $imageName = "grieavance_img".$user_id.$timestamp.".".explode(".",$imageName)[1];                     
+                    $imageName = "grieavance_img".$user_id.$timestamp.".".explode(".",$imageName)[1];
                     $path = 'public/images/grievanceimages';
                     if($req->file('grievanceimg')->storeAs($path,$imageName)){
                         $Insertdata['image'] = $imageName;
                     }else{
                         return $this->return_message(false,"File cant be uploaded.");
-                    }                                          
+                    }
                    
                 }
                 // echo "<pre>";
@@ -103,12 +103,12 @@ class Complain extends My_controller
             $status = $data['status'];
             $message = $data['message'];
             $role = $this->user()->role;
-            //only acees to officer,principal,super admin            
+            //only acees to officer,principal,super admin
             if(($role==config('constants.SUPER_ADMIN_ROLE') || $role==config('constants.PRINCIPAL_ROLE') || $role==config('constants.OFFICER_ROLE')) && ($status==config('constants.REJECTED') || $status==config('constants.APPROVED'))){
                 $updatable_data = [
                     "status"=>(string)$status,
                     "officer_message"=>$message
-                ];                
+                ];
                 $userData = $this->model->get_data($complain_id);
                 if(isset($userData) && !empty($userData)){
                     if($this->model->update_complain($updatable_data,$complain_id)){
@@ -165,19 +165,19 @@ class Complain extends My_controller
             //only acees to hod,principal,super admin
             if($role==config('constants.HOD_ROLE') && $status==config('constants.SEEN')){
                 $updatable_data = [
-                    "status"=>(string)$status                    
-                ];                
+                    "status"=>(string)$status
+                ];
 
                 $this->model->update_complain($updatable_data,$complain_id);
             }
 
             return $this->return_message(false,"You have not permission to do this action");
         }else{
-            return $this->return_message(false,"Un autherized user");   
+            return $this->return_message(false,"Un autherized user");
         }
     }
     public function get_data(Request $req){
-        //need 
+        //need
         //students
             //sort_by : {date_asc|date_desc}
             //page_no
@@ -196,7 +196,7 @@ class Complain extends My_controller
         //HOD_ROLE
             //sort_by : {date_asc|date_desc}
             //page_no
-            //search            
+            //search
             //status
             //from_date
             //end_date
@@ -222,15 +222,15 @@ class Complain extends My_controller
                     "user_id" => $this->user()->id,
                     "sort_by" => $data['sort_by'],
                     "status" => $data['status']
-                ];                
+                ];
             }
-            if($role==config("constants.OFFICER_ROLE") || $role==config("constants.PRINCIPAL_ROLE")){                
+            if($role==config("constants.OFFICER_ROLE") || $role==config("constants.PRINCIPAL_ROLE")){
                 // if($data['status'] != config("constants.PENDING") && $data['status'] != config("constants.REJECTED") && $data['status'] != config("constants.APPROVED") && $data['status'] != ''){
                 //     return $this->return_message(false,"You are not allow to access");
                 // }
-                $config = [                    
+                $config = [
                     "status"=>$data['status'],
-                    "institute"=>$this->user()->institute,                    
+                    "institute"=>$this->user()->institute,
                     "sort_by" => $data['sort_by']
                 ];
                 if(isset($data['department']) && trim($data['department'])!="" && $data['department']!=null  && $data['department']>0){
@@ -239,38 +239,38 @@ class Complain extends My_controller
             }
             if($role==config("constants.HOD_ROLE")){
                 
-                $config = [  
+                $config = [
                     "department"=>$this->user()->department,
                     "institute"=>$this->user()->institute,
                     "status"=>$data['status'],
                     "sort_by" => $data['sort_by']
-                ];                
+                ];
             }
             if($role==config("constants.SUPER_ADMIN_ROLE")){
                 
-                $config = [  
+                $config = [
                     "status"=>$data['status'],
                     "sort_by" => $data['sort_by']
-                ];    
+                ];
                 if(isset($data['department']) && trim($data['department'])!="" && $data['department']!=null && $data['department']>0){
                     $config['department'] = $data['department'];
                 }
                 if(isset($data['institute']) && trim($data['institute'])!="" && $data['institute']!=null){
                     $config['institute'] = $data['institute'];
-                }            
+                }
             }
             
             //add pagination
             if(isset($data['page_no']) && $data['page_no']!=""){
                 $config['page_no'] = $data['page_no'];
-            }else{                
+            }else{
                 $config['page_no'] = 1;
-            }   
+            }
 
             //add search functionality
             if(isset($data['search']) && trim($data['search']) != ""){
                 $config['search'] = $data['search'];
-            }            
+            }
             if(isset($data['from_date']) && $data['from_date']!=""){
                 $config['from_date'] = $data['from_date'];
             }
@@ -279,7 +279,7 @@ class Complain extends My_controller
                 $to_date = trim($to_date);
                 $datetime = new DateTime($to_date);
                 $datetime->modify('+1 day');
-                $to_date = $datetime->format('Y-m-d');                
+                $to_date = $datetime->format('Y-m-d');
                 $config['end_date'] = $to_date;
             }
             // print_r($config);
@@ -292,7 +292,7 @@ class Complain extends My_controller
                 return $this->return_message(false,"OOPS! something went wrong");
             }
             
-        }        
+        }
     }
     public function get_complain_counts(Request $req){
         $data = $req->input();
@@ -311,7 +311,7 @@ class Complain extends My_controller
             $to_date = trim($to_date);
             $datetime = new DateTime($to_date);
             $datetime->modify('+1 day');
-            $to_date = $datetime->format('Y-m-d');             
+            $to_date = $datetime->format('Y-m-d');
         }
         $passData = [
             'department'=>$department,
@@ -332,6 +332,6 @@ class Complain extends My_controller
                 "status"=>false,
                 "msg"=>"NO data found"
             ]);
-        }        
+        }
     }
 }

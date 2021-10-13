@@ -5,6 +5,17 @@ var DeptDataForEdit = {};
 var editThisId;
 //
 
+// Navbar responsiveness script
+function responsiveNavBar() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+}
+//
+
 $(document).ready(function () {
 
 
@@ -177,7 +188,7 @@ $(document).ready(function () {
 
     $('#deleteDeptBtn').click(function () {
         let id = deleteThisId;
-        console.log("you clicked: " + id);
+        // console.log("you clicked: " + id);
 
         $.ajax({
             url: `department/delete-dept/`,

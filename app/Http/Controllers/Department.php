@@ -14,12 +14,6 @@ class Department extends Controller {
     }
     
     public function index(){
-        /*
-        $dept_list = Array();
-        $dept_list = DB::select("SELECT * FROM departments ORDER BY department_id");
-        
-        return view('pages.department', ['dept' => $dept_list])->render();
-        */
         return view('pages.department');
     }
     

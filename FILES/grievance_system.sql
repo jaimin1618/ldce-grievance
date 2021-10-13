@@ -175,7 +175,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `enrollment`, `contact`, `role`, `de
 (2, 'student janvi thakkar', 'janvi@summachar.in', '190280116120', '8320911631', '4', 16, 28, 'images/avtar1.jpg', NULL, '$2y$10$Gxs9esdZsAhovyei6IeMbe6oFBtAVjuLNS4L536oNrU/Pt4Fc7Xim', NULL, '2021-07-23 07:25:44', '2021-07-23 07:25:44'),
 (3, 'soham officer', 'soham@summachar.in', '190280116121', '8320911631', '3', NULL, 28, 'images/avtar1.jpg', NULL, '$2y$10$Gxs9esdZsAhovyei6IeMbe6oFBtAVjuLNS4L536oNrU/Pt4Fc7Xim', 'GQpxObG5VBamQ2QJloWIN4QPEyKPX3Hj9FLyixQkE517W6aMIaRx206WLJ07', '2021-07-07 13:00:47', '2021-07-15 13:00:47'),
 (4, 'soham principal', 'sohamprincipal@summachar.in', NULL, '8320911631', '1', NULL, 28, 'images/avtar1.jpg', NULL, '$2y$10$Gxs9esdZsAhovyei6IeMbe6oFBtAVjuLNS4L536oNrU/Pt4Fc7Xim', NULL, '2021-07-07 13:00:47', '2021-07-15 13:00:47'),
-(5, 'soham hod', 'sohamhod@gmail.com', NULL, '8320911631', '2', 16, 28, 'images/avtar1.jpg', NULL, '$2y$10$Gxs9esdZsAhovyei6IeMbe6oFBtAVjuLNS4L536oNrU/Pt4Fc7Xim', 'HriQVlezoOzKppWAHpnAwTYIyxTxYURcAQEG9R6xRaxtwX4c3QqvXYKjbdTp', '2021-07-15 13:00:47', '2021-07-15 13:00:47');
+(5, 'soham hod', 'sohamhod@gmail.com', NULL, '8320911631', '2', 16, 28, 'images/avtar1.jpg', NULL, '$2y$10$Gxs9esdZsAhovyei6IeMbe6oFBtAVjuLNS4L536oNrU/Pt4Fc7Xim', 'HriQVlezoOzKppWAHpnAwTYIyxTxYURcAQEG9R6xRaxtwX4c3QqvXYKjbdTp', '2021-07-15 13:00:47', '2021-07-15 13:00:47'),
+(6, 'admin', 'admin@test.com', NULL, '1234567890', '0', 16, 28, 'images/avtar1.jpg', NULL, '$2a$12$WTkMUqEpvIAN3xohuC2zlO0b2ZIA4WapIdUPiVu7aMoBID97ffZUm', '', '2021-07-15 13:00:47', '2021-07-15 13:00:47');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
