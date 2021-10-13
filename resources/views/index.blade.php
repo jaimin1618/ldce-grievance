@@ -13,8 +13,10 @@
     <link rel="stylesheet" href="{{asset('css/header.css')}}" />
     <link rel="stylesheet" href="{{asset('css/common.css')}}" />
     
+    
     <title>@yield('title')</title>
     @yield('styles')
+    <link rel="stylesheet" href="{{asset('css/footer.css')}}" />
     <style>
         *{
             margin: 0px;

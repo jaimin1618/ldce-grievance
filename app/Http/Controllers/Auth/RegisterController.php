@@ -64,11 +64,11 @@ class RegisterController extends Controller
                 'enrollment' => ['required','integer', 'min:100000000000','nullable', 'max:999999999999', 'unique:users'],     
                 'contact' => ['required','integer', 'min:1000000000', 'max:9999999999'],            
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
-            ],[
+            ],[               
                 'enrollment.min'=>"The Enrollment no. must be of 12 digit",
                 'enrollment.max'=>"The Enrollment no. must be of 12 digit",
-                "contact.min"=>"Please Enter Valid 10 digit Contact No.",
-                "contact.max"=>"Please Enter Valid 10 digit Contact No.",
+                "contact.min"=>"Please enter valid 10 digit number",
+                "contact.max"=>"Please enter valid 10 digit number",
             ]);
         }else{
             return Validator::make($data, [
@@ -79,8 +79,8 @@ class RegisterController extends Controller
                 'contact' => ['required','integer', 'min:10', 'max:10', 'unique:users'],            
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
             ],[                
-                "contact.min"=>"Please Enter Valid 10 digit Contact No.",
-                "contact.max"=>"Please Enter Valid 10 digit Contact No.",
+                "contact.min"=>"Please enter valid 10 digit number",
+                "contact.max"=>"Please enter valid 10 digit number",
             ]);
         }
         

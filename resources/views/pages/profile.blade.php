@@ -31,15 +31,15 @@
 
                     <div class="input">
                         <input type="text" placeholder="Name" name="name" value="{{$name}}" />
-                    </div>
-
-                    <div class="input">
-                        <input type="text" placeholder="Email-id" name="email" value="{{$email}}"/>
                         <img src="{{'./images/signup/pen.svg'}}" />
                     </div>
-                    @error('email')
-                        <span class="err">Please fill this field!</span>
+                    @error('name')
+                    <span class="err">Please fill this field!</span>
                     @enderror
+
+                    <div class="input">
+                        <input type="text" placeholder="Email-id" name="email" value="{{$email}}" disabled/>
+                    </div>
                     <div class="input">
                         <input type="tel" placeholder="Mobile-no" name="contact" value="{{$contact}}"/>
                         <img src="{{'./images/signup/pen.svg'}}" />
@@ -48,17 +48,12 @@
                         <span class="err">Please fill this field!</span>
                     @enderror
                     <div class="input">
-                        <input type="text" placeholder="Enrollment No." name="enrollment" value="{{$enrollment}}"/>
+                        <input type="text" placeholder="Enrollment No." name="enrollment" value="{{$enrollment}}" disabled/>
                     </div>
 
 
                     <div class="input">
-                        <input type="text" placeholder="Department" name="department" value="{{$department}}"/>
-                    </div>
-
-                    <div class="input">
-
-                        <input type="text" placeholder="Institute" name="institute" value="{{$institute}}"/>
+                        <input type="text" placeholder="Department" name="department" value="{{$department}}" disabled/>
                     </div>
 
                     <button type="submit" class="primary-color">
