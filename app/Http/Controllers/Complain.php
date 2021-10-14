@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\StatusMail;
 use App\Models\Complain as ComplainModel;
 use App\Models\Department;
+use Composer\XdebugHandler\Status;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -301,7 +302,7 @@ class Complain extends My_controller
             $returnData = $this->model->getComplainData($config);
             if (isset($data['from_export'])) {
 
-                $fileName = 'grivance.csv';                
+                $fileName = 'grivance'.$config['from_date'].'_to_'.$config['end_date'].'.csv';                
                 $Exportdata = $returnData['data'];
 
                 $headers = array(
@@ -312,20 +313,22 @@ class Complain extends My_controller
                     "Expires"             => "0"
                 );
 
-                $columns = array('Id', 'Title', 'Message', 'Student Name', 'Allocated department');
+                $columns = array('Id', 'Title',"status", 'Message', 'Student Name', 'Allocated department');
 
                 $callback = function () use ($Exportdata, $columns) {
                     $file = fopen('php://output', 'w');
                     fputcsv($file, $columns);
                     
                     foreach ($Exportdata as $key=>$task) {
-                        $row['id']  = $key;
+                        $row['id']  = $key+1;
                         $row['message']    = $task->message;
                         $row['title']    = $task->title;
                         $row['name']  = $task->name;
                         $row['department_name']  = $task->department_name;
+                        
+                        $row['status'] = $this->set_complaiun_status($task->status);
 
-                        fputcsv($file, array($row['id'], $row['title'], $row['message'], $row['name'], $row['department_name']));
+                        fputcsv($file, array($row['id'],$row['status'] ,$row['title'], $row['message'], $row['name'], $row['department_name']));
                     }
 
                     fclose($file);
@@ -341,6 +344,16 @@ class Complain extends My_controller
                     return $this->return_message(false, "OOPS! something went wrong");
                 }
             }
+        }
+    }
+    protected function set_complaiun_status($status){
+        switch($status){
+            case config('constants.PENDING'): return "Pending";
+            case config('constants.REJECTED'): return "Rejected";
+            case config('constants.APPROVED'): return "Approved";
+            case config('constants.SEEN'): return "SEEN";
+            case config('constants.IN_PROGRESS'): return "In Progress";
+            case config('constants.COMPLETED'): return "Completed";
         }
     }
     public function get_complain_counts(Request $req)
