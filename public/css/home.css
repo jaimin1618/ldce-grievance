@@ -1,0 +1,77 @@
+#headerImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /* width: auto; */
+    width: 70%;
+}
+
+#CollegeTitleForSmall {
+    display: none;
+}
+.homeTitle {
+    color: blue;
+}
+
+.homeDiv {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    margin-bottom: 60px;
+}
+
+.youtubeDiv {
+    display: block;
+    margin-left: 31%;
+    margin-right: auto;
+}
+
+.youtubeDiv img {
+    width: 65%;
+}
+.videoDiv {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 45%;
+    height: 50vh;
+
+    margin-bottom: 30px;
+}
+
+.videotitle {
+    color: black !important;
+}
+
+@media (max-width: 1065px) {
+    .videoDiv {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 70%;
+        height: 30vh;
+    }
+}
+
+@media (max-width: 871px) {
+    #headerImage {
+        display: none;
+    }
+    #CollegeTitleForSmall {
+        display: flex;
+        flex-direction: column;
+
+        margin-bottom: 20px;
+
+        /* width: 50%; */
+    }
+}
+@media (max-width: 500px) {
+    #CollegeTitleForSmall {
+        display: none;
+
+        width: 50%;
+    }
+    
+}
