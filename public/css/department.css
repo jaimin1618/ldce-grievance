@@ -78,6 +78,10 @@
     font-size: 1.1em;
 }
 
+#insert-modal {
+  border-radius: 5px;
+}
+
 .ebutton {
   background-color: rgb(16, 133, 16);
   border: none;
@@ -345,10 +349,10 @@ input[type=submit]:hover {
     width: 33.33%;
   }
 
-  .topnav a:hover {
+  /* .topnav a:hover {
     background-color: #ddd;
     color: black;
-  }
+  } */
 
   .topnav a.active {
     color: white;
@@ -356,6 +360,10 @@ input[type=submit]:hover {
 
   .topnav .icon {
     display: none;
+  }
+
+  #subNavBar #myTopnav .active {
+    background-color: rgb(57, 97, 99);
   }
 
   @media screen and (max-width: 600px) {

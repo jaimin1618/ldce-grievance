@@ -53,7 +53,7 @@ Route::get('manage-users/all-users/',[ManageUser::class,'show'])->name('get-user
 Route::get('manage-users/show-user/{id}',[ManageUser::class,'show_user'])->name('user.show');
 Route::post('manage-users/delete-user/{id}', [ManageUser::class, 'delete'])->name('user.delete');
 Route::post('manage-users/edit-user/', [ManageUser::class, 'edit'])->name('user.edit');
-
+Route::post('manage-users/add-user/', [ManageUser::class, 'addUser'])->name('user.add');
 
 Route::get('profile',[Profile::class,'index'])->name('profile');
 Route::post('user/save',[Profile::class,'saveData'])->name('saveUser');

@@ -10,17 +10,19 @@
 
     <!-- Secondary Navbar -->
     <nav id="subNavBar">
-        <div class="topnav" id="myTopnav">
-            <a href="{{ route('department') }}" class="active">Manage Department</a>
-            <a href="{{ route('manageUsers') }}">Manage Users</a>
-            <a href="{{ route('messages.index') }}">Contact Messages</a>
-            <a href="javascript:void(0);" class="icon" onclick="responsiveNavBar();">
-            <i class="fa fa-bars">Sub Menu;</i>
-            </a>
-        </div>
+      <div class="topnav" id="myTopnav">
+          <a href="{{ route('department') }}" class="{{Route::currentRouteName()=='department'?'active':''}}">Manage Department</a>
+          <a href="{{ route('manageUsers') }}" class="{{Route::currentRouteName()=='manageUsers'?'active':''}}">Manage Users</a>
+          <a href="{{ route('messages.index') }}" class="{{Route::currentRouteName()=='messages.index'?'active':''}}">Contact Messages</a>
+          <a href="javascript:void(0);" class="icon" onclick="responsiveNavBar();">
+          <i class="fa fa-bars">Sub Menu;</i>
+          </a>
+      </div>
     </nav>
     
     <h1>Principle, HODs and Officers</h1>
+
+    <button id="insert-user-modal" class="button"><span>[+]</span> Insert New User </button>
 
     <table id="users_table">
         <thead>
@@ -124,7 +126,6 @@
                 <div id="warnings">
                     {{-- APPEND Warning --}}
                 </div>
-                
             </div>
             
             <div class="alert danger" id="edit_failure">
@@ -176,6 +177,83 @@
         </div>
         <div class="modal-footer">
           <h3>Click 'Update' to comfirm your update</h3>
+        </div>
+      </div>
+
+    </div>
+        
+
+    {{-- INSERT MODAL --}}
+    <div id="insertUserModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Insert New User</h2>
+        </div>
+        <div class="modal-body">
+
+        <div class="alert success" id="edit_success">
+          <span class="closebtn">&times;</span>
+          <strong>Success!</strong> Selected User Has Been Updated.
+        </div>
+
+        <div class="alert warning" id="edit_warning">
+          <span class="closebtn">&times;</span>
+          <strong>Danger!</strong> Kindly fill details carefully.
+          <div id="warnings">
+              {{-- APPEND Warning --}}
+          </div>
+        </div>
+            
+        <div class="alert danger" id="edit_failure">
+          <span class="closebtn">&times;</span>
+          <strong>Danger!</strong> There were some problems with your given inputs.
+          <div id="insert-dangers">
+              {{-- APPEND Warning --}}
+          </div>
+        </div>
+        
+            <div>
+              <form id="insert-user-form">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Full Name">
+
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" placeholder="Email Address">
+                
+                <label for="contact">Contact No</label>
+                <input type="number" id="contact" name="contact" placeholder="Contact No">
+
+                <label for="role">Role</label>
+                <select id="role" name="role">
+                  <option value="0">SUPER ADMIN</option>
+                  <option value="1">PRINCIPAL</option>
+                  <option value="2">HOD</option>
+                  <option value="3">OFFICER</option>
+                </select>
+                
+                <div id="deptNo">
+                    <label for="dept">Department No</label>
+                    <input type="number" id="deptNum" name="deptNum" placeholder="Department No">
+                </div>
+                
+                
+                <label for="institute">Institute No</label>
+                <input type="number" id="instituteNum" name="instituteNum" placeholder="Institute No">
+                
+                <label for="password">New password</label>
+                <input type="password" id="newPassword" name="password" placeholder="new password" value="">
+                
+                <label for="password">Retype password</label>
+                <input type="password" id="newPassword2" name="password2" placeholder="re-type password" value="">
+              
+                <input id="insertUserBtn" type="submit" value="Insert User">
+              </form>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+          <h3>Click 'Insert' to comfirm your update</h3>
         </div>
       </div>
 

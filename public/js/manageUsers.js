@@ -132,6 +132,11 @@ $(document).ready(() => {
                     }, 3000);
                     
                 }
+            },
+            complete: () => {
+                setTimeout(() => {
+                    $('#delModal').css('display', 'none');
+                }, 1000);
             }
         });
     }); //
@@ -176,9 +181,11 @@ $(document).ready(() => {
         password = $('#newPassword').val();
         passowrd2 = $('#newPassword2').val();
         
+        /*
         if (role == 2) {
             $('#deptNo').css('display', 'block');
         }
+        */
         
         /* sanitization and filtering */
         let msg = [];
@@ -228,22 +235,23 @@ $(document).ready(() => {
                 success: (data) => { // console.log(data);
                     
                     if (data.status === 1) {
-                        $('#edit_success').css('display', 'block');
+                        $('#editUserModal #edit_success').css('display', 'block');
                         setTimeout(() => {
-                            $('#edit_success').fadeOut('slow');
+                            $('#editUserModal #edit_success').fadeOut('slow');
                         }, 5000);
                     } else {
-                        $('#edit_failure').css('display', 'block');
+                        $('#editUserModal #edit_failure').css('display', 'block');
                         setTimeout(() => {
-                            $('#edit_failure').fadeOut('slow');
-                        }, 5000);
+                            $('#editUserModal #edit_failure').fadeOut('slow');
+                        }, 10000);
                     }
                 },
                 complete: () => {
                     $('#user-tbody').empty();
                     $.fn.getUsersData();
                 },
-                error: (err) => { // console.log(err);
+                error: (err) => { 
+                    console.log(err);
                     
                     $('#dangers').empty();
                     if (err.status != 200) {
@@ -256,19 +264,128 @@ $(document).ready(() => {
                                 
                             }
                         }
-                        $('#edit_failure').css('display', 'block');
+                        $('#editUserModal #edit_failure').css('display', 'block');
                         $('#dangers').css('display', 'block');
                     }
                     
                     setTimeout(() => {
-                        $('#edit_failure').fadeOut('slow');
+                        $('#editUserModal #edit_failure').fadeOut('slow');
                     }, 10000);
                 }
             })
         }
         
     });
+
+    /* ON INSERT BUTTON CLICK */
+    $('#insert-user-modal').on('click', () => {
+        $('#insertUserModal').css('display', 'block');
+    });  
+    
+    /* ON INSERT FORM BUTTON CLICK */
+    $('#insertUserBtn').on('click', (e) => { e.preventDefault();
+        name = $('#insert-user-form #name').val();
+        email = $('#insert-user-form #email').val();
+        contact = $('#insert-user-form #contact').val();
+        role = $('#insert-user-form #role').val();
+        deptNum = $('#insert-user-form #deptNum').val();
+        instituteNum = $('#insert-user-form #instituteNum').val();
+        password = $('#insert-user-form #newPassword').val();
+        passowrd2 = $('#insert-user-form #newPassword2').val();
+
+        let msg = [];
+        $('#insert-user-form #warnings').empty();
+        if (name == '') {
+            msg.push('Please enter full name');
+        } if (email == '') {
+            msg.push('Please enter email');
+        } if (contact == '') {
+            msg.push('Please enter contact number');
+        } if (role == 2 && deptNum == '') {
+            msg.push('Please enter department number');
+        } if (instituteNum == '') {
+            msg.push('Please enter institute number');
+        } if (password != passowrd2) {
+            msg.push('Password and Re-type passowrd both must match');
+        }
         
+        if (msg.length > 0) {
+            msg.forEach((msg, i) => {
+                let output = `<small class='msg'>${msg}</small><br>`;
+                $('#insertUserModal #edit_warning #warnings').append(output);
+            });
+            
+            $('#insertUserModal #edit_warning').css('display', 'block');
+            setTimeout(() => {
+                $('#insertUserModal #edit_warning').fadeOut('slow');
+            }, 10000);
+            msg = [];
+        } else {
+            $.ajax({
+                url: 'manage-users/add-user/',
+                type: 'POST',
+                data: {
+                    'name': name,
+                    'email': email,
+                    'contact': contact,
+                    'role': role,
+                    'deptNum': deptNum,
+                    'instituteNum': instituteNum,
+                    'password': password
+                },
+                dataType: 'json',
+                success: (data) => {  // console.log(data.status);
+                    if (data.status == 2) {
+                        let out = "<small>User already exists</small><br>";
+                        $('#insert-dangers').append(out);
+                        $('#insertUserModal #edit_failure').css('display', 'block');
+
+                    } else if (data.status == 1) {
+                        $('#insertUserModal #edit_success').css('display', 'block');
+                        setTimeout(() => {
+
+                            $('#insertUserModal #edit_success').fadeOut('slow');
+
+                        }, 10000);
+                    }
+                },
+                complete: () => {
+                    $('#user-tbody').empty();
+                    $.fn.getUsersData();
+                    $('#insert-user-form #name').val("");
+                    $('#insert-user-form #email').val("");
+                    $('#insert-user-form #contact').val("");
+                    $('#insert-user-form #role').val("");
+                    $('#insert-user-form #deptNum').val("");
+                    $('#insert-user-form #instituteNum').val("");
+                    $('#insert-user-form #newPassword').val("");
+                    $('#insert-user-form #newPassword2').val("");
+                },
+                error: (err) => { // console.log(err);
+                    
+                    if (err.status != 200) {
+                        let errors = err.responseJSON.errors;
+                        console.log(errors);
+                        for (let err in errors) {
+                            for (let er of errors[err]) {
+                                let output = `<small> ${er} </small><br />`;
+                                $('#insert-dangers').append(output);
+                            }
+                        }
+                        $('#insertUserModal #edit_failure').css('display', 'block');
+                    }
+                    
+                    setTimeout(() => {
+                        $('#insertUserModal #edit_failure').fadeOut('slow');
+                    }, 10000);
+                    setTimeout(() => {
+                        $('#insert-dangers').empty();
+                    }, 10000);
+                }
+            })
+        }
+    });
+
     
     $('#edit-user-form #role').on('change', () => {
         let selected = $('#edit-user-form #role')[0].selectedIndex;
@@ -277,6 +394,16 @@ $(document).ready(() => {
             $('#deptNo').css('display', 'block');
         } else {
             $('#deptNo').css('display', 'none');
+        }
+    });
+
+    $('#insert-user-form #role').on('change', () => {
+        let selected = $('#insert-user-form #role')[0].selectedIndex;
+        
+        if (selected == 2) {
+            $('#insert-user-form #deptNo').css('display', 'block');
+        } else {
+            $('#insert-user-form #deptNo').css('display', 'none');
         }
     });
     

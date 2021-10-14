@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
@@ -14,7 +15,10 @@ class Department extends Controller {
     }
     
     public function index(){
-        return view('pages.department');
+        if(Auth::user()->role==config("constants.SUPER_ADMIN_ROLE") || Auth::user()->role==config("constants.PRINCIPAL_ROLE")){
+            return view('pages.department');
+        }
+        return view('pages.dashboard');
     }
     
     public function show ($id = 0) {

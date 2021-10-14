@@ -14,9 +14,9 @@
 <!-- Secondary Navbar -->
 <nav id="subNavBar">
     <div class="topnav" id="myTopnav">
-        <a href="{{ route('department') }}" class="active">Manage Department</a>
-        <a href="{{ route('manageUsers') }}">Manage Users</a>
-        <a href="{{ route('messages.index') }}">Contact Messages</a>
+        <a href="{{ route('department') }}" class="{{Route::currentRouteName()=='department'?'active':''}}">Manage Department</a>
+        <a href="{{ route('manageUsers') }}" class="{{Route::currentRouteName()=='manageUsers'?'active':''}}">Manage Users</a>
+        <a href="{{ route('messages.index') }}" class="{{Route::currentRouteName()=='messages.index'?'active':''}}">Contact Messages</a>
         <a href="javascript:void(0);" class="icon" onclick="responsiveNavBar();">
         <i class="fa fa-bars">Sub Menu;</i>
         </a>
