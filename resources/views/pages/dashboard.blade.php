@@ -704,7 +704,7 @@
                 return status_count;
             },
             renderChartsInDOM: function(counts) {
-                console.log(counts);
+                // console.log(counts);
                 $("#chart_category_all").html(counts.all);
                 $("#chart_category_pending").html(counts.pending);
                 $("#chart_category_rejected").html(counts.rejected);

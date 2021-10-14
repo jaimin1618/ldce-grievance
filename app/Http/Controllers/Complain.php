@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\VarDumper\Cloner\Data;
+use \Soundasleep\Html2Text as TextCoverter;
 
 class Complain extends My_controller
 {
@@ -298,11 +299,11 @@ class Complain extends My_controller
             }
             // print_r($config);
             // die;
-            
+
             $returnData = $this->model->getComplainData($config);
             if (isset($data['from_export'])) {
 
-                $fileName = 'grivance'.$config['from_date'].'_to_'.$config['end_date'].'.csv';                
+                $fileName = 'grivance' . $config['from_date'] . '_to_' . $config['end_date'] . '.csv';
                 $Exportdata = $returnData['data'];
 
                 $headers = array(
@@ -313,22 +314,23 @@ class Complain extends My_controller
                     "Expires"             => "0"
                 );
 
-                $columns = array('Id', 'Title',"status", 'Message', 'Student Name', 'Allocated department');
+                $columns = array('Id', 'Title', "status", 'Message', 'Student Name', 'Allocated department');
 
                 $callback = function () use ($Exportdata, $columns) {
                     $file = fopen('php://output', 'w');
                     fputcsv($file, $columns);
-                    
-                    foreach ($Exportdata as $key=>$task) {
-                        $row['id']  = $key+1;
-                        $row['message']    = $task->message;
+
+                    foreach ($Exportdata as $key => $task) {
+                        $row['id']  = $key + 1;
+                        $row['message']  =  preg_replace("/\n\s+/", "\n", rtrim(html_entity_decode(str_replace('&nbsp;', ' ', strip_tags(str_replace('</li>', ', &nbsp;</li>',$task->message), ENT_HTML5)))));
+
                         $row['title']    = $task->title;
                         $row['name']  = $task->name;
                         $row['department_name']  = $task->department_name;
-                        
+
                         $row['status'] = $this->set_complaiun_status($task->status);
 
-                        fputcsv($file, array($row['id'],$row['status'] ,$row['title'], $row['message'], $row['name'], $row['department_name']));
+                        fputcsv($file, array($row['id'], $row['title'], $row['status'], $row['message'], $row['name'], $row['department_name']));
                     }
 
                     fclose($file);
@@ -346,14 +348,21 @@ class Complain extends My_controller
             }
         }
     }
-    protected function set_complaiun_status($status){
-        switch($status){
-            case config('constants.PENDING'): return "Pending";
-            case config('constants.REJECTED'): return "Rejected";
-            case config('constants.APPROVED'): return "Approved";
-            case config('constants.SEEN'): return "SEEN";
-            case config('constants.IN_PROGRESS'): return "In Progress";
-            case config('constants.COMPLETED'): return "Completed";
+    protected function set_complaiun_status($status)
+    {
+        switch ($status) {
+            case config('constants.PENDING'):
+                return "Pending";
+            case config('constants.REJECTED'):
+                return "Rejected";
+            case config('constants.APPROVED'):
+                return "Approved";
+            case config('constants.SEEN'):
+                return "SEEN";
+            case config('constants.IN_PROGRESS'):
+                return "In Progress";
+            case config('constants.COMPLETED'):
+                return "Completed";
         }
     }
     public function get_complain_counts(Request $req)

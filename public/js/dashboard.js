@@ -57,7 +57,7 @@ function sliceSize(dataNum, dataTotal) {
     for(i = 0; i < listData.length; i++) {
       listTotal += listData[i];
     }
-    console.log(listData);
+    // console.log(listData);
   
     for(i=0; i < listData.length; i++) {
       var size = sliceSize(listData[i], listTotal);

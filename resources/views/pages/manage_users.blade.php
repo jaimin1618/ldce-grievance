@@ -156,8 +156,15 @@
                 </select>
                 
                 <div id="deptNo">
-                    <label for="dept">Department No</label>
-                    <input type="number" id="deptNum" name="deptNum" placeholder="Department No">
+                    <label for="dept">Department </label>
+                    <select id="deptNum" placeholder="Department No"  name="deptNum">
+                    @if(isset($departments) && !empty($departments))
+                      @foreach($departments as $department)
+                        <option value="{{$department['department_id']}}">{{$department['department_name']}}</option>
+                      @endforeach
+                    @endif
+                  </select>
+                    {{-- <input type="number" id="deptNum" name="deptNum" placeholder="Department No"> --}}
                 </div>
                 
                 
@@ -232,10 +239,22 @@
                   <option value="3">OFFICER</option>
                 </select>
                 
-                <div id="deptNo">
+                {{-- <div id="deptNo">
                     <label for="dept">Department No</label>
                     <input type="number" id="deptNum" name="deptNum" placeholder="Department No">
-                </div>
+                </div> --}}
+
+                <div id="deptNo">
+                  <label for="dept">Department </label>
+                  <select id="deptNum" placeholder="Department No"  name="deptNum">
+                  @if(isset($departments) && !empty($departments))
+                    @foreach($departments as $department)
+                      <option value="{{$department['department_id']}}">{{$department['department_name']}}</option>
+                    @endforeach
+                  @endif
+                </select>
+                  {{-- <input type="number" id="deptNum" name="deptNum" placeholder="Department No"> --}}
+              </div>
                 
                 
                 <!-- <label for="institute">Institute No</label> -->

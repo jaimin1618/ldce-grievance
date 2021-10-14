@@ -13,7 +13,9 @@ class ManageUser extends Controller
 {
     function index(){
         if(Auth::user()->role==config("constants.SUPER_ADMIN_ROLE") || Auth::user()->role==config("constants.PRINCIPAL_ROLE")){
-            return view('pages.manage_users');
+            $passData = [];
+            $passData['departments'] = Department::select("*")->get()->toArray(); 
+            return view('pages.manage_users',$passData);
         }
         return view('pages.dashboard');
     }
