@@ -161,8 +161,8 @@
                 </div>
                 
                 
-                <label for="institute">Institute No</label>
-                <input type="number" id="instituteNum" name="instituteNum" placeholder="Institute No">
+                <!-- <label for="institute">Institute No</label> -->
+                <input type="hidden" id="instituteNum" name="instituteNum" placeholder="Institute No" value="28">
                 
                 <label for="password">New password</label>
                 <input type="password" id="newPassword" name="password" placeholder="new password" value="">
@@ -238,8 +238,8 @@
                 </div>
                 
                 
-                <label for="institute">Institute No</label>
-                <input type="number" id="instituteNum" name="instituteNum" placeholder="Institute No">
+                <!-- <label for="institute">Institute No</label> -->
+                <input type="hidden" id="instituteNum" name="instituteNum" placeholder="Institute No" value="28">
                 
                 <label for="password">New password</label>
                 <input type="password" id="newPassword" name="password" placeholder="new password" value="">
