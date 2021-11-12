@@ -61,6 +61,9 @@ Route::view('aboutus', 'pages/aboutus')->name('aboutus');
 
 Route::post('contactus/save',[Contactus::class,'insert'])->name('saveContactUs');
 Route::get('contactus',[Contactus::class,'index'])->name('contactUs');
+Route::get('developers',function(){
+    return View('pages/team');
+})->name('developers');
 Auth::routes();
 
 

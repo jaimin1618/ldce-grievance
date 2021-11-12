@@ -85,7 +85,7 @@
         </p>
     </div>
 
-    <div class="container" style="margin-top: 50px">
+    {{-- <div class="container" style="margin-top: 50px">
         <div class="title">
             <h1 class="">Developer Team</h1>
             <div class="underline">
@@ -96,9 +96,9 @@
                 </svg>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="container">
+    {{-- <div class="container">
         <div class="team-area-row">
             <div class="team-box d-f-c">
                 <div class="img_box">
@@ -141,7 +141,7 @@
                 </span>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 {{-- <div class="body">
     <div class="about-title">

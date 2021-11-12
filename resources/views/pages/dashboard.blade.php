@@ -4,7 +4,7 @@
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/pagination.css') }}" />
-    <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
+    <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
     <style>
         input,
         select {
@@ -833,6 +833,7 @@
                                                 
             },
             updateStatus() {
+                $("#page_loader").show();                
                 var data = {
                     status: $("#action_status").val(),
                     complain_id: $("#action_complain_id").val(),
@@ -844,6 +845,7 @@
                     method: "POST",
                     data: data,
                     success: function(data) {
+                        
                         var UpdateStatus = JSON.parse(data);
                         if (UpdateStatus.status == true) {
                             dashboard.getGrivanceList(1);
@@ -857,6 +859,7 @@
                             showAlert(UpdateStatus.message, "fail");
                             //    alert(UpdateStatus.message)
                         }
+                        $("#page_loader").hide(); 
                     }
 
                 })

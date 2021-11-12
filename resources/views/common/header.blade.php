@@ -198,11 +198,7 @@
     </span>
 </div>
 
-<div class="loader-container" id="page_loader">
-    <div class="loader-box">
-        <img src="{{ asset('images/common/loader.gif') }}" alt="">
-    </div>
-</div>
+
 <script>
     $(document).ready(()=>{
         hideLoader();

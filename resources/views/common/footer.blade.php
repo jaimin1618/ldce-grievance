@@ -1,4 +1,10 @@
+<div class="loader-container" id="page_loader" >
+    <div class="loader-box">
+        <img src="{{ asset('images/common/loader.gif') }}" alt="">
+    </div>
+</div>
 @if(Route::currentRouteName()!="profile")
+
 <footer class="primary-color">
     <div class="row">
         <div class="footer-box">
@@ -68,7 +74,7 @@
     </div>
     <div class="copy right d-f-c">
         <span class="footer_small_text">
-            2021 © LDCE. All rights Reserved | Design by LDCE Team
+            2021 © LDCE. All rights Reserved | Design by <a href="{{ route('developers') }}" style="color: white">LDCE Team</a> 
         </span>
         
     </div>

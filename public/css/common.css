@@ -83,7 +83,7 @@ body{
     justify-content: center;
     align-items: center;
     background-color: white;
-    z-index: 111;
+    z-index: 111111111111111999999;
 }
 .loader-container .loader-box{
     width: 90%;
