@@ -204,11 +204,12 @@
         hideLoader();
     })
      function openNav(){
-        if($("#left-nav").css('transform')=="matrix(1, 0, 0, 1, -250.4, 0)"){
-            $("#left-nav").css("transform","translateX(0%)");
-
-        }else{
+        if($("#left-nav").css('transform')=="matrix(1, 0, 0, 1, 0, 0)"){
+            
             $("#left-nav").css("transform","translateX(-100%)");
+            // alert($("#left-nav").css('transform'))
+        }else{
+            $("#left-nav").css("transform","translateX(0%)");
         }
     }
     function closeAlert(){
