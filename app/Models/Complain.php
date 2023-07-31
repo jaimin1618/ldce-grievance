@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use phpDocumentor\Reflection\PseudoTypes\False_;
 
 class Complain extends Model
 {
@@ -52,7 +51,7 @@ class Complain extends Model
             return false;
         }
 
-        $query = DB::table($this->table)->select($this->table . ".*", $this->departmentTable . ".department_name", $this->Usertable . ".email", $this->Usertable . ".name", $this->Usertable . ".profile_pic")->leftJoin($this->Usertable, $this->table . ".user_id", "=", $this->Usertable . ".id")->leftJoin($this->departmentTable, $this->departmentTable . ".department_id", "=", $this->table . ".department");
+        $query = DB::table($this->table)->select($this->table . ".*", $this->departmentTable . ".departments", $this->Usertable . ".email", $this->Usertable . ".name", $this->Usertable . ".profile_pic")->leftJoin($this->Usertable, $this->table . ".user_id", "=", $this->Usertable . ".id")->leftJoin($this->departmentTable, $this->departmentTable . ".department_id", "=", $this->table . ".department");
         if (isset($config['user_id'])) {
             $query = $query->where($this->table . '.user_id', $config['user_id']);
         }
@@ -77,21 +76,20 @@ class Complain extends Model
         } else {
             $query->orderBy($this->table . '.updated_at', 'desc');
         }
-        $count  = $query->count();
+        $count = $query->count();
         if ($config['page_no'] >= 0) {
-            $query->offset((((int)$config['page_no']) - 1) * (int)config("constants.limit"))->limit((int)config("constants.limit"));
+            $query->offset((((int) $config['page_no']) - 1) * (int) config("constants.limit"))->limit((int) config("constants.limit"));
         }
-
 
         $returnData = [
             'count' => $count,
-            'limit' =>  config("constants.limit"),
-            "page_no" =>  (int)$config['page_no']
+            'limit' => config("constants.limit"),
+            "page_no" => (int) $config['page_no'],
         ];
-        if (((int)$config['page_no']) < ceil($count / (int)config("constants.limit"))) {
-            $returnData['next'] = TRUE;
+        if (((int) $config['page_no']) < ceil($count / (int) config("constants.limit"))) {
+            $returnData['next'] = true;
         } else {
-            $returnData['next'] = FALSE;
+            $returnData['next'] = false;
         }
         $returnData['data'] = $query->get()->toArray();
         return $returnData;

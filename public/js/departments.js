@@ -50,7 +50,7 @@ $(document).ready(function () {
                         let dept = {
                             id: response['data'][i].id,
                             deptId: response['data'][i].department_id,
-                            deptName: response['data'][i].department_name
+                            deptName: response['data'][i].departments
                         }
 
                         /* This function is rendering response on window */
@@ -348,7 +348,7 @@ function editDeptModal (id) {
         // show data
         $('#p-key').val(response.data.id);
         $('#editDeptId').val(response.data.department_id);
-        $('#editDeptName').val(response.data.department_name);
+        $('#editDeptName').val(response.data.departments);
 
     }).fail(function (error) {
         console.log(error);

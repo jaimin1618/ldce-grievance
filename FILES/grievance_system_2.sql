@@ -91,7 +91,7 @@ INSERT INTO `contactus` (`id`, `name`, `email`, `message`) VALUES
 DROP TABLE IF EXISTS `departments`;
 CREATE TABLE IF NOT EXISTS `departments` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `department_name` varchar(50) NOT NULL,
+  `departments` varchar(50) NOT NULL,
   `department_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `department_id` (`department_id`)
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `departments` (
 -- Dumping data for table `departments`
 --
 
-INSERT INTO `departments` (`id`, `department_name`, `department_id`) VALUES
+INSERT INTO `departments` (`id`, `departments`, `department_id`) VALUES
 (1, '	  AERONAUTICAL ENGINEERING', 1),
 (2, '	  AUTOMOBILE ENGINEERING', 2),
 (3, '	  BIO-MEDICAL ENGINEERING', 3),

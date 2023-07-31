@@ -10,8 +10,6 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Symfony\Component\VarDumper\Cloner\Data;
-use \Soundasleep\Html2Text as TextCoverter;
 
 class Complain extends My_controller
 {
@@ -24,7 +22,7 @@ class Complain extends My_controller
     {
         if (Auth::user() && Auth::user()->role == config('constants.STUDENT_ROLE')) {
             $passData = [];
-            $passData['departments'] = Department::select('department_name', 'department_id')->orderBy('department_id', 'DESC')->get()->toArray();
+            $passData['departments'] = Department::select('departments', 'department_id')->orderBy('department_id', 'DESC')->get()->toArray();
 
             return view('pages.add_grievance', $passData);
         } else {
@@ -36,7 +34,7 @@ class Complain extends My_controller
         if (isset($req)) {
             $data = $req->input();
             if (isset($this->user()->id) && isset($data['_token'])) {
-                $user_id =  $this->user()->id;
+                $user_id = $this->user()->id;
                 $title = "";
                 if (isset($data['title']) && trim($data['title']) != "") {
                     if (strlen($data['title']) > 100) {
@@ -59,7 +57,7 @@ class Complain extends My_controller
                     return $this->return_message(false, "Select Department ,It is required");
                 }
                 $Insertdata = [
-                    "title" => $title,
+
                     'message' => $message,
                     'user_id' => $this->user()->id,
                     'department' => $department_id,
@@ -75,10 +73,10 @@ class Complain extends My_controller
                     $fileType = $req->file('grievanceimg')->getClientMimeType();
 
                     if ($fileSize > 10000000) {
-                        return  $this->return_message(false, "file size must be less than 10MB");
+                        return $this->return_message(false, "file size must be less than 10MB");
                     }
                     if (!($fileType == "image/png" || $fileType == "image/jpeg" || $fileType == "image/jpg")) {
-                        return  $this->return_message(false, "Only png | jpeg | jpg are allowed types ");
+                        return $this->return_message(false, "Only png | jpeg | jpg are allowed types ");
                     }
                     $timestamp = strtotime("now");
                     $imageName = "grieavance_img" . $user_id . $timestamp . "." . explode(".", $imageName)[1];
@@ -89,9 +87,7 @@ class Complain extends My_controller
                         return $this->return_message(false, "File cant be uploaded.");
                     }
                 }
-                // echo "<pre>";
-                // print_r($Insertdata);
-                // die;
+
                 if (!$this->model->insert_complain($Insertdata)) {
                     return $this->return_message(false, "OOps!! something went wrong.");
                 }
@@ -117,11 +113,11 @@ class Complain extends My_controller
             $status = $data['status'];
             $message = $data['message'];
             $role = $this->user()->role;
-            //only acees to officer,principal,super admin            
+            //only acees to officer,principal,super admin
             if (($role == config('constants.SUPER_ADMIN_ROLE') || $role == config('constants.PRINCIPAL_ROLE') || $role == config('constants.OFFICER_ROLE')) && ($status == config('constants.REJECTED') || $status == config('constants.APPROVED'))) {
                 $updatable_data = [
-                    "status" => (string)$status,
-                    "officer_message" => $message
+                    "status" => (string) $status,
+                    "officer_message" => $message,
                 ];
                 $userData = $this->model->get_data($complain_id);
                 if (isset($userData) && !empty($userData)) {
@@ -136,7 +132,7 @@ class Complain extends My_controller
                         $mailData = [
                             "status" => $changedStatus,
                             "name" => $userData[0]->name,
-                            "given_message" => $message
+                            "given_message" => $message,
                         ];
 
                         Mail::to($userData[0]->email)->send(new StatusMail($mailData));
@@ -150,8 +146,8 @@ class Complain extends My_controller
             //only acees to principal,principal,super admin
             if (($role == config('constants.SUPER_ADMIN_ROLE') || $role == config('constants.PRINCIPAL_ROLE') || $role == config('constants.HOD_ROLE')) && ($status == config('constants.IN_PROGRESS') || $status == config('constants.COMPLETED'))) {
                 $updatable_data = [
-                    "status" => (string)$status,
-                    "return_message" => $message
+                    "status" => (string) $status,
+                    "return_message" => $message,
                 ];
                 $userData = $this->model->get_data($complain_id);
                 if ($this->model->update_complain($updatable_data, $complain_id)) {
@@ -164,11 +160,10 @@ class Complain extends My_controller
                     $mailData = [
                         "status" => $changedStatus,
                         "name" => $userData[0]->name,
-                        "given_message" => $message
+                        "given_message" => $message,
                     ];
 
                     Mail::to($userData[0]->email)->send(new StatusMail($mailData));
-
 
                     return $this->return_message(true, $stattusMessage);
                 }
@@ -176,7 +171,7 @@ class Complain extends My_controller
             //only acees to hod,principal,super admin
             if ($role == config('constants.HOD_ROLE') && $status == config('constants.SEEN')) {
                 $updatable_data = [
-                    "status" => (string)$status
+                    "status" => (string) $status,
                 ];
 
                 $this->model->update_complain($updatable_data, $complain_id);
@@ -189,7 +184,7 @@ class Complain extends My_controller
     }
     public function get_data(Request $req)
     {
-        //need 
+        //need
         //students
         //sort_by : {date_asc|date_desc}
         //page_no
@@ -208,7 +203,7 @@ class Complain extends My_controller
         //HOD_ROLE
         //sort_by : {date_asc|date_desc}
         //page_no
-        //search            
+        //search
         //status
         //from_date
         //end_date
@@ -233,7 +228,7 @@ class Complain extends My_controller
                 $config = [
                     "user_id" => $this->user()->id,
                     "sort_by" => $data['sort_by'],
-                    "status" => $data['status']
+                    "status" => $data['status'],
                 ];
             }
             if ($role == config("constants.OFFICER_ROLE") || $role == config("constants.PRINCIPAL_ROLE")) {
@@ -243,9 +238,9 @@ class Complain extends My_controller
                 $config = [
                     "status" => $data['status'],
                     "institute" => $this->user()->institute,
-                    "sort_by" => $data['sort_by']
+                    "sort_by" => $data['sort_by'],
                 ];
-                if (isset($data['department']) && trim($data['department']) != "" && $data['department'] != null  && $data['department'] > 0) {
+                if (isset($data['department']) && trim($data['department']) != "" && $data['department'] != null && $data['department'] > 0) {
                     $config['department'] = $data['department'];
                 }
             }
@@ -255,14 +250,14 @@ class Complain extends My_controller
                     "department" => $this->user()->department,
                     "institute" => $this->user()->institute,
                     "status" => $data['status'],
-                    "sort_by" => $data['sort_by']
+                    "sort_by" => $data['sort_by'],
                 ];
             }
             if ($role == config("constants.SUPER_ADMIN_ROLE")) {
 
                 $config = [
                     "status" => $data['status'],
-                    "sort_by" => $data['sort_by']
+                    "sort_by" => $data['sort_by'],
                 ];
                 if (isset($data['department']) && trim($data['department']) != "" && $data['department'] != null && $data['department'] > 0) {
                     $config['department'] = $data['department'];
@@ -278,7 +273,7 @@ class Complain extends My_controller
             } else {
                 $config['page_no'] = 1;
             }
-            //getAll data 
+            //getAll data
             if (isset($data['all_data'])) {
                 $config['page_no'] = -1;
             }
@@ -307,11 +302,11 @@ class Complain extends My_controller
                 $Exportdata = $returnData['data'];
 
                 $headers = array(
-                    "Content-type"        => "text/csv",
+                    "Content-type" => "text/csv",
                     "Content-Disposition" => "attachment; filename=$fileName",
-                    "Pragma"              => "no-cache",
-                    "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
-                    "Expires"             => "0"
+                    "Pragma" => "no-cache",
+                    "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+                    "Expires" => "0",
                 );
 
                 $columns = array('Id', 'Title', "status", 'Message', 'Student Name', 'Allocated department');
@@ -321,16 +316,16 @@ class Complain extends My_controller
                     fputcsv($file, $columns);
 
                     foreach ($Exportdata as $key => $task) {
-                        $row['id']  = $key + 1;
-                        $row['message']  =  preg_replace("/\n\s+/", "\n", rtrim(html_entity_decode(str_replace('&nbsp;', ' ', strip_tags(str_replace('</li>', ', &nbsp;</li>',$task->message), ENT_HTML5)))));
+                        $row['id'] = $key + 1;
+                        $row['message'] = preg_replace("/\n\s+/", "\n", rtrim(html_entity_decode(str_replace('&nbsp;', ' ', strip_tags(str_replace('</li>', ', &nbsp;</li>', $task->message), ENT_HTML5)))));
 
-                        $row['title']    = $task->title;
-                        $row['name']  = $task->name;
-                        $row['department_name']  = $task->department_name;
+                        $row['title'] = $task->title;
+                        $row['name'] = $task->name;
+                        $row['departments'] = $task->department_name;
 
                         $row['status'] = $this->set_complaiun_status($task->status);
 
-                        fputcsv($file, array($row['id'], $row['title'], $row['status'], $row['message'], $row['name'], $row['department_name']));
+                        fputcsv($file, array($row['id'], $row['title'], $row['status'], $row['message'], $row['name'], $row['departments']));
                     }
 
                     fclose($file);
@@ -388,7 +383,7 @@ class Complain extends My_controller
         $passData = [
             'department' => $department,
             'from_date' => $from_date,
-            'to_date' => $to_date
+            'to_date' => $to_date,
         ];
         if (Auth::user()->role == config('constants.STUDENT_ROLE')) {
             $passData['user_id'] = Auth::user()->id;
@@ -397,12 +392,12 @@ class Complain extends My_controller
         if (isset($complains) && !empty($complains)) {
             return json_encode([
                 "status" => true,
-                "data" => $complains
+                "data" => $complains,
             ]);
         } else {
             return json_encode([
                 "status" => false,
-                "msg" => "NO data found"
+                "msg" => "NO data found",
             ]);
         }
     }

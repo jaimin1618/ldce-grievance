@@ -46,12 +46,12 @@ class Department extends Controller {
         // OR where([[], []]) => TO MATCH BOTH CONDITIONS
         $check = DB::table("departments")
                 ->where("department_id", "=", $id)
-                ->orWhere("department_name", "=", $name)
+                ->orWhere("departments", "=", $name)
                 ->first();
                     
         if ($check == null) {
             $is_inserted = DB::table('departments')->insert([
-                'department_name' => $name,
+                'departments' => $name,
                 'department_id' => $id
             ]);
             if ($is_inserted == true) {
@@ -86,7 +86,7 @@ class Department extends Controller {
         $deptId = $req->deptId;
         $name = $req->name;
         
-        $is_updated = DB::table('departments')->where('id', $id)->update(['department_id' => $deptId, 'department_name' => $name]);
+        $is_updated = DB::table('departments')->where('id', $id)->update(['department_id' => $deptId, 'departments' => $name]);
         if ($is_updated) {
             $status = 1;
         }

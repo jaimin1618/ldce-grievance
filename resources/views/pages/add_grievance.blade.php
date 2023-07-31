@@ -53,7 +53,7 @@
                 <select name="department_id" id="department_id">
                     @if(isset($departments) && !empty($departments))
                         @foreach ($departments as $department)
-                            <option @if($department['department_id']==Auth::user()->department) {{"selected"}} @endif value="{{$department['department_id']}}">{{$department['department_name']}}</option>        
+                            <option @if($department['department_id']==Auth::user()->department) {{"selected"}} @endif value="{{$department['department_id']}}">{{$department['departments']}}</option>        
                         @endforeach
                     
                     @endif

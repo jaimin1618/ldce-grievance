@@ -4,13 +4,12 @@
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/pagination.css') }}" />
-    <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <style>
         input,
         select {
             background-color: white
         }
-
     </style>
 
 @endsection
@@ -45,7 +44,7 @@
                         <select name="department_chart" id="department_chart">
                             <option value="-1">All</option>
                             @foreach ($departments as $department)
-                                <option value="{{ $department['department_id'] }}">{{ $department['department_name'] }}
+                                <option value="{{ $department['department_id'] }}">{{ $department['departments'] }}
                                 </option>
                             @endforeach
 
@@ -58,9 +57,12 @@
                 </div>
 
                 <div class="dashboard-filter-box">
-                    <input type="date" name="start_date_chart" id="start_date_chart" value="@if (isset($last_month_date)){{ $last_month_date }}@endif" />
+                    <input type="date" name="start_date_chart" id="start_date_chart"
+                        value="@if (isset($last_month_date)) {{ $last_month_date }} @endif" />
                     -
-                    <input type="date" name="end_date_chart" id="end_date_chart" max="@if (isset($today_date)){{ $today_date }}@endif" value="@if (isset($today_date)){{ $today_date }}@endif">
+                    <input type="date" name="end_date_chart" id="end_date_chart"
+                        max="@if (isset($today_date)) {{ $today_date }} @endif"
+                        value="@if (isset($today_date)) {{ $today_date }} @endif">
                 </div>
             </div>
             <div class="analysis d-f-c" style="position: relative" id="analysis_container">
@@ -170,7 +172,8 @@
         <div class="card container" style="margin-top: 30px">
             <div class="dasboard-filter" style="margin: 0px">
                 <div>
-                    <form onsubmit="getExportData()" style="width:100px" id="export_grivance" method="POST" action="{{ route('getData') }}">
+                    <form onsubmit="getExportData()" style="width:100px" id="export_grivance" method="POST"
+                        action="{{ route('getData') }}">
                         @csrf
                         <input type="submit" class="btn  navy" style="" name="export" value="Export">
                     </form>
@@ -185,7 +188,7 @@
                         <select name="department_of_list" id="department_of_list">
                             <option value="-1">All-department</option>
                             @foreach ($departments as $department)
-                                <option value="{{ $department['department_id'] }}">{{ $department['department_name'] }}
+                                <option value="{{ $department['department_id'] }}">{{ $department['departments'] }}
                                 </option>
                             @endforeach
                         </select>
@@ -203,23 +206,31 @@
 
                     <select name="by_status" id="by_status">
                         <option value="">All Status</option>
-                        <option value="{{ config('constants.PENDING') }}" @if (isset($default_status) && $default_status == config('constants.PENDING')) {{ 'selected' }} @endif>Pending</option>
-                        <option value="{{ config('constants.REJECTED') }}" @if (isset($default_status) && $default_status == config('constants.REJECTED')) {{ 'selected' }} @endif>Rejected</option>
-                        <option value="{{ config('constants.APPROVED') }}" @if (isset($default_status) && $default_status == config('constants.APPROVED')) {{ 'selected' }} @endif>Not actioned</option>
-                        <option value="{{ config('constants.IN_PROGRESS') }}" @if (isset($default_status) && $default_status == config('constants.IN_PROGRESS')) {{ 'selected' }} @endif>In progress
+                        <option value="{{ config('constants.PENDING') }}"
+                            @if (isset($default_status) && $default_status == config('constants.PENDING')) {{ 'selected' }} @endif>Pending</option>
+                        <option value="{{ config('constants.REJECTED') }}"
+                            @if (isset($default_status) && $default_status == config('constants.REJECTED')) {{ 'selected' }} @endif>Rejected</option>
+                        <option value="{{ config('constants.APPROVED') }}"
+                            @if (isset($default_status) && $default_status == config('constants.APPROVED')) {{ 'selected' }} @endif>Not actioned</option>
+                        <option value="{{ config('constants.IN_PROGRESS') }}"
+                            @if (isset($default_status) && $default_status == config('constants.IN_PROGRESS')) {{ 'selected' }} @endif>In progress
                         </option>
-                        <option value="{{ config('constants.COMPLETED') }}" @if (isset($default_status) && $default_status == config('constants.COMPLETED')) {{ 'selected' }} @endif>Completed</option>
+                        <option value="{{ config('constants.COMPLETED') }}"
+                            @if (isset($default_status) && $default_status == config('constants.COMPLETED')) {{ 'selected' }} @endif>Completed</option>
                     </select>
                 </div>
                 <div class="dashboard-filter-box">
-                    <input type="date" name="start_date_table" id="start_date_table" value="@if (isset($last_month_date)){{ $last_month_date }}@endif" />
+                    <input type="date" name="start_date_table" id="start_date_table"
+                        value="@if (isset($last_month_date)) {{ $last_month_date }} @endif" />
                     -
-                    <input type="date" name="end_date_table" id="end_date_table" max="@if (isset($today_date)){{ $today_date }}@endif" value="@if (isset($today_date)){{ $today_date }}@endif" />
-                    
-                </div>
-                
+                    <input type="date" name="end_date_table" id="end_date_table"
+                        max="@if (isset($today_date)) {{ $today_date }} @endif"
+                        value="@if (isset($today_date)) {{ $today_date }} @endif" />
 
-                
+                </div>
+
+
+
             </div>
             <div class="dashboard-table" style="position: relative;min-height:300px">
                 <div class="inner_loader_container" id="table_loader">
@@ -255,7 +266,8 @@
                     <div class="header-box">
                         <div class="img-box">
                             <img id="sender_img"
-                                src="https://cdn.dribbble.com/users/1041205/screenshots/3636353/dribbble.jpg" alt="">
+                                src="https://cdn.dribbble.com/users/1041205/screenshots/3636353/dribbble.jpg"
+                                alt="">
                         </div>
                         <h3 id="sender_name">Unknown person</h3>
                     </div>
@@ -534,7 +546,7 @@
                 $("#pop-up-grievance-title").html(data.title)
                 $("#pop-up-grievance").html(data.grievance);
                 $("#pop-up-status").html(dashboard.setStatus(data.status));
-                $("#allocated_department").html(data.department_name);
+                $("#allocated_department").html(data.departments);
                 // console.log(data)
 
                 (data.officer_msg && data.officer_msg != "") ? $("#pop-up-officer-msg").html(data.officer_msg): $(
@@ -631,7 +643,7 @@
                 var row = "";
                 var data = {
                     id: rowData.id,
-                    department_name: rowData.department_name,
+                    departments: rowData.departments,
                     title: rowData.title,
                     name: rowData.name,
                     sender_img: rowData.profile_pic,
@@ -819,21 +831,31 @@
                 $("#table_loader").css('display', 'flex');
                 var formData = new FormData(form);
                 $("#export_grivance").html("");
-                $("<input />").attr("type", "hidden").attr("name", "department").attr("value", $("#department_of_list").val()).appendTo("#export_grivance");
-                $("<input />").attr("type", "hidden").attr("name", "from_date").attr("value", $("#start_date_table").val()).appendTo("#export_grivance");
-                $("<input />").attr("type", "hidden").attr("name", "end_date").attr("value", $("#end_date_table").val()).appendTo("#export_grivance");
-                $("<input />").attr("type", "hidden").attr("name", "sort_by").attr("value", $("#sort_by").val()).appendTo("#export_grivance");
-                $("<input />").attr("type", "hidden").attr("name", "all_data").attr("value", true).appendTo("#export_grivance");
-                $("<input />").attr("type", "hidden").attr("name", "from_export").attr("value", true).appendTo("#export_grivance");
-                $("<input />").attr("type", "hidden").attr("name", "status").attr("value", $("#by_status").val()).appendTo("#export_grivance");
-                $("<input />").attr("type", "hidden").attr("name", "search").attr("value", $("#search").val()).appendTo("#export_grivance");
-                $("<input />").attr("type", "hidden").attr("name", "_token").attr("value", "{{ csrf_token() }}").appendTo("#export_grivance");
-                $("<input />").attr("type", "submit").attr("class", "btn navy").attr("value", "Export").appendTo("#export_grivance");                
+                $("<input />").attr("type", "hidden").attr("name", "department").attr("value", $(
+                    "#department_of_list").val()).appendTo("#export_grivance");
+                $("<input />").attr("type", "hidden").attr("name", "from_date").attr("value", $("#start_date_table")
+                    .val()).appendTo("#export_grivance");
+                $("<input />").attr("type", "hidden").attr("name", "end_date").attr("value", $("#end_date_table")
+                    .val()).appendTo("#export_grivance");
+                $("<input />").attr("type", "hidden").attr("name", "sort_by").attr("value", $("#sort_by").val())
+                    .appendTo("#export_grivance");
+                $("<input />").attr("type", "hidden").attr("name", "all_data").attr("value", true).appendTo(
+                    "#export_grivance");
+                $("<input />").attr("type", "hidden").attr("name", "from_export").attr("value", true).appendTo(
+                    "#export_grivance");
+                $("<input />").attr("type", "hidden").attr("name", "status").attr("value", $("#by_status").val())
+                    .appendTo("#export_grivance");
+                $("<input />").attr("type", "hidden").attr("name", "search").attr("value", $("#search").val())
+                    .appendTo("#export_grivance");
+                $("<input />").attr("type", "hidden").attr("name", "_token").attr("value", "{{ csrf_token() }}")
+                    .appendTo("#export_grivance");
+                $("<input />").attr("type", "submit").attr("class", "btn navy").attr("value", "Export").appendTo(
+                    "#export_grivance");
                 $("#table_loader").css('display', 'none');
-                                                
+
             },
             updateStatus() {
-                $("#page_loader").show();                
+                $("#page_loader").show();
                 var data = {
                     status: $("#action_status").val(),
                     complain_id: $("#action_complain_id").val(),
@@ -845,7 +867,7 @@
                     method: "POST",
                     data: data,
                     success: function(data) {
-                        
+
                         var UpdateStatus = JSON.parse(data);
                         if (UpdateStatus.status == true) {
                             dashboard.getGrivanceList(1);
@@ -859,7 +881,7 @@
                             showAlert(UpdateStatus.message, "fail");
                             //    alert(UpdateStatus.message)
                         }
-                        $("#page_loader").hide(); 
+                        $("#page_loader").hide();
                     }
 
                 })

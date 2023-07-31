@@ -9,11 +9,10 @@ class Department extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    
-    public function getDeptData () {
-        
+
+    public function getDeptData()
+    {
+
     }
-    
-    
-    
+
 }

@@ -160,7 +160,7 @@
                     <select id="deptNum" placeholder="Department No"  name="deptNum">
                     @if(isset($departments) && !empty($departments))
                       @foreach($departments as $department)
-                        <option value="{{$department['department_id']}}">{{$department['department_name']}}</option>
+                        <option value="{{$department['department_id']}}">{{$department['departments']}}</option>
                       @endforeach
                     @endif
                   </select>
@@ -249,7 +249,7 @@
                   <select id="deptNum" placeholder="Department No"  name="deptNum">
                   @if(isset($departments) && !empty($departments))
                     @foreach($departments as $department)
-                      <option value="{{$department['department_id']}}">{{$department['department_name']}}</option>
+                      <option value="{{$department['department_id']}}">{{$department['departments']}}</option>
                     @endforeach
                   @endif
                 </select>

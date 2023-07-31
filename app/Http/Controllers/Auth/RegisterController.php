@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -20,7 +20,7 @@ class RegisterController extends Controller
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
-    */
+     */
 
     use RegistersUsers;
 
@@ -47,46 +47,44 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    
+
     protected function validator(array $data)
     {
         // print_r(Validator::make($data, [
         //     'name' => ['required', 'string', 'max:80'],
         //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        //     'enrollment' => ['required','integer', 'min:100000000000','nullable', 'max:999999999999', 'unique:users'],     
-        //     'contact' => ['required','integer', 'min:10', 'max:10', 'unique:users'],            
+        //     'enrollment' => ['required','integer', 'min:100000000000','nullable', 'max:999999999999', 'unique:users'],
+        //     'contact' => ['required','integer', 'min:10', 'max:10', 'unique:users'],
         //     'password' => ['required', 'string', 'min:8', 'confirmed'],
         // ]));
-        if(isset($data['enrollment'])){
+        if (isset($data['enrollment'])) {
             return Validator::make($data, [
                 'name' => ['required', 'string', 'max:80'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'enrollment' => ['required','integer', 'min:100000000000','nullable', 'max:999999999999', 'unique:users'],     
-                'contact' => ['required','integer', 'min:1000000000', 'max:9999999999'],            
+                'enrollment' => ['required', 'integer', 'min:100000000000', 'nullable', 'max:999999999999', 'unique:users'],
+                'contact' => ['required', 'integer', 'min:1000000000', 'max:9999999999'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
-            ],[               
-                'enrollment.min'=>"The Enrollment no. must be of 12 digit",
-                'enrollment.max'=>"The Enrollment no. must be of 12 digit",
-                "contact.min"=>"Please enter valid 10 digit number",
-                "contact.max"=>"Please enter valid 10 digit number",
+            ], [
+                'enrollment.min' => "The Enrollment no. must be of 12 digit",
+                'enrollment.max' => "The Enrollment no. must be of 12 digit",
+                "contact.min" => "Please enter valid 10 digit number",
+                "contact.max" => "Please enter valid 10 digit number",
             ]);
-        }else{
+        } else {
             return Validator::make($data, [
                 'name' => ['required', 'string', 'max:80'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'department'=>['required'],
-                'institute'=>['required'],
-                'contact' => ['required','integer', 'min:10', 'max:10', 'unique:users'],            
+                'department' => ['required'],
+                'institute' => ['required'],
+                'contact' => ['required', 'integer', 'min:10', 'max:10', 'unique:users'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
-            ],[                
-                "contact.min"=>"Please enter valid 10 digit number",
-                "contact.max"=>"Please enter valid 10 digit number",
+            ], [
+                "contact.min" => "Please enter valid 10 digit number",
+                "contact.max" => "Please enter valid 10 digit number",
             ]);
         }
-        
+
     }
-    
-    
 
     /**
      * Create a new user instance after a valid registration.
@@ -99,31 +97,31 @@ class RegisterController extends Controller
         $department = $institute = $enrollment = null;
         $role = '4';
         $profile_pic = 'images/avtar1.jpg';
-        if(isset($data['role'])){
+        if (isset($data['role'])) {
             $role = $data['role'];
         }
-        if(isset($data['profile_pic'])){
+        if (isset($data['profile_pic'])) {
             $profile_pic = $data['profile_pic'];
         }
-        if(isset($data['enrollment'])){
+        if (isset($data['enrollment'])) {
             $enrollment = $data['enrollment'];
-            $institute = substr($enrollment,2,3);
-            $department = substr($enrollment,7,2);
-        }else{
+            $institute = substr($enrollment, 2, 3);
+            $department = substr($enrollment, 7, 2);
+        } else {
             $department = $data['department'];
             $institute = $data['institute'];
         }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'enrollment'=>$enrollment,
-            'role'=>$role,
-            'institute'=>$institute,
-            'department'=>$department,
-            'contact'=>$data['contact'],
+            'enrollment' => $enrollment,
+            'role' => $role,
+            'institute' => $institute,
+            'department' => $department,
+            'contact' => $data['contact'],
             'password' => Hash::make($data['password']),
-            'profile_pic'=> $profile_pic
-            
+            'profile_pic' => $profile_pic,
+
         ]);
     }
 }
